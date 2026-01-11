@@ -1,8 +1,0 @@
-[  ]
-# List of selected classes
-class TMCHe4Phase
-class TMCUserGenerator
-class TMCUserParticle
-header TMCHe4Phase.h
-header TMCUserGenerator.h
-header TMCUserParticle.h
