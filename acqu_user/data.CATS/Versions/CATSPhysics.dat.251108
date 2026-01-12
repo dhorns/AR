@@ -1,0 +1,119 @@
+############################################################
+# Setup File for Physics class TA2CATSPhysics
+#
+# Author: David Hornidge
+############################################################
+#
+# Set Target parameters (used by TA2Physics.cc)
+#Target:	0. 0. 0.	938.271  # proton
+Target:	0. 0. 0.	11174.71	# C-12
+#
+############################################################
+# Set Physics class input parameters
+#
+# Set Compton (photon v. tagger) prompt and random windows
+Compton-Prompt-Windows: -150 -110
+Compton-Random-Windows: -50 0 0 0
+#
+# CATS Core Pedestals
+CATS-Core-Pedestals: 91.7403 120.6588 124.6774 133.8989 86.3987 122.59435 134.6562
+#
+# CATS Core GainDrift
+CATS-Core-GainDrift: 1 1 1 1 1 1 1
+#
+# CATS Core Energy Calibration Parameters
+CATS-Core-Energy-Calibration: 5.1984228 0.2314023 0.0000046
+#
+# Set Missing Energy Cut
+Missing-Energy-Cut: -10 10
+#
+# Produce Physics class tree file? 0/1 = off/on
+Produce-Tree-File: 0
+#
+# Tree file name if Produce-Tree-File is on
+Tree-File-Name: scratch/TA2CATSPhysics.root
+#
+############################################################
+Initialise:
+############################################################
+# Define histograms to display
+#
+## Tagger ##
+Display: 1D NTagg				150 	0 	150 
+Display: 1D NPrompt				150 	0 	150 
+Display: 1D NRandom				150 	0 	150 
+Display: 1D TaggerTime		1000 -500 500
+Display: 1D TaggerTimeCal	1000 -500 500
+Display: 1D TaggerChannel	328 0 327
+#
+## CATS ##
+#     Core
+Display: 1D nCATSCore		10 	0 	10 
+#
+Display: 1D CATSCoreEnergy1		500	0	500
+Display: 1D CATSCoreEnergy2		500	0	500
+Display: 1D CATSCoreEnergy3		500	0	500
+Display: 1D CATSCoreEnergy4		500	0	500
+Display: 1D CATSCoreEnergy5		500	0	500
+Display: 1D CATSCoreEnergy6		500	0	500
+Display: 1D CATSCoreEnergy7		500	0	500
+#
+Display: 1D CATSCoreEnergy		500	0	500
+#
+Display: 1D CATSCoreTime1		1000	-500	500
+Display: 1D CATSCoreTime2		1000	-500	500
+Display: 1D CATSCoreTime3		1000	-500	500
+Display: 1D CATSCoreTime4		1000	-500	500
+Display: 1D CATSCoreTime5		1000	-500	500
+Display: 1D CATSCoreTime6		1000	-500	500
+Display: 1D CATSCoreTime7		1000	-500	500
+#
+#
+#     Annulus
+Display: 1D nCATSAnnulus		10 	0 	10 
+#
+Display: 1D CATSAnnulusEnergy1		500	0	500
+Display: 1D CATSAnnulusEnergy2		500	0	500
+Display: 1D CATSAnnulusEnergy3		500	0	500
+Display: 1D CATSAnnulusEnergy4		500	0	500
+Display: 1D CATSAnnulusEnergy5		500	0	500
+Display: 1D CATSAnnulusEnergy6		500	0	500
+#
+Display: 1D CATSAnnulusEnergy		500	0	500
+#
+Display: 1D CATSAnnulusTime1		1000	-500	500
+Display: 1D CATSAnnulusTime2		1000	-500	500
+Display: 1D CATSAnnulusTime3		1000	-500	500
+Display: 1D CATSAnnulusTime4		1000	-500	500
+Display: 1D CATSAnnulusTime5		1000	-500	500
+Display: 1D CATSAnnulusTime6		1000	-500	500
+#
+#
+#     Shield
+Display: 1D nCATSShield		10 	0 	10 
+#
+Display: 1D CATSShieldEnergy1		500	0	500
+Display: 1D CATSShieldEnergy2		500	0	500
+Display: 1D CATSShieldEnergy3		500	0	500
+Display: 1D CATSShieldEnergy4		500	0	500
+Display: 1D CATSShieldEnergy5		500	0	500
+#
+Display: 1D CATSShieldEnergy		500	0	500
+#
+Display: 1D CATSShieldTime1		1000	-500	500
+Display: 1D CATSShieldTime2		1000	-500	500
+Display: 1D CATSShieldTime3		1000	-500	500
+Display: 1D CATSShieldTime4		1000	-500	500
+Display: 1D CATSShieldTime5		1000	-500	500
+#
+#
+# Total CATS
+#
+Display: 1D CATSEnergy			1000	0	1000
+Display: 1D CATSEnergyNoShield		1000	0	1000
+#
+Display: 1D CATSEnergyPrompt		1000	0	1000
+Display: 1D CATSEnergyRandom		1000	0	1000
+#
+Display: 1D EmissP		200	-100	100
+Display: 1D EmissR		200	-100	100

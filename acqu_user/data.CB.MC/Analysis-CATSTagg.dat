@@ -1,0 +1,92 @@
+# Analysis setup file for running Tagger + CB + TAPS
+########################################################################
+#
+## Catch-TDC, where a reference TDC channel has to be specified
+## The reference TDC channel contains the trigger time which is subtracted
+## from the other specified channels
+MultiADC:       8       800     909     910
+MultiADC:       8       912     927     910
+MultiADC:       8       928     1037    1038
+MultiADC:       8       1040    1055    1038
+MultiADC:       8       1056    1165    1166
+MultiADC:       8       1168    1183    1166
+##
+## TAPS Multihit
+#MultiADC:       3       29193   29319   29192
+##
+# speed TAPS readout bitpatterns
+#MultiADC:       1       410    493
+#MultiADC:       1       10000    10100
+## PWO and veto inner ring
+##     	   	#hits	start	stop	reference
+## MultiADC:       3       29193   29319   29192 ## original values in this file
+MultiADC:	   3	   29224   29317   29192 ## taken from AnalysisOffline-CBTaggTAPS.dat
+##
+## speed TAPS readout bitpatterns
+MultiADC:       1       410    493
+MultiADC:       1       10000    10100
+##
+# TAPS bit pattern
+#BitPattern: Pattern-TAPS.dat
+##
+##Apparatus setup
+##
+##		Name		Class			Setup file
+Apparatus:      TAGG            TA2Tagger   		Apparatus-Tagger855.dat
+Apparatus:      CATSApp         TA2GenericApp           Apparatus-CATS.dat
+##
+Reconstruct-Analysis:
+##
+#Physics-Analysis:	PHYS	TA2Pi0Compton		AR-Analysis-Pi0Compton.dat
+Physics-Analysis:	PHYS	TA2CATSPhysics		CATSPhysics.dat
+#Physics-Analysis:	dummy	TA2GoAT			GenericPhysics.dat
+##
+Initialise:
+##
+Period:	100000	root/macros/PeriodMacro.C PeriodMacro()
+##
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day1")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day2")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day3")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day4")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day5")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day6")
+Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_all")
+###
+#Display: All
+#Display: ADC 20000 20511
+#Display: ADC 21000 21511
+#Display: ADC 22000 22511
+#Display: ADC 23000 23511
+#Display: ADC 24000 24511
+#Display: ADC 25000 25511
+#Display: ADC 26000 26511
+#Display: ADC 27000 27511
+#Display: ADC 28000 28511
+#Display: ADC 29000 29191
+#Display: ADC 29192 29192
+#
+Display: ADC 29048 29059
+Display: MultiHit 29240 29251 12000 -10000  2000 0
+Display: ADC 27000 27015
+###
+##### For PWO Time
+###
+#Display: MultiHit 29193 29319 12000 -10000  2000 0
+##
+## Display VUPROM scalers
+#Display: Scaler 0 95
+#Display: SumScaler 0 95
+##
+# BaF2 CFD pattern
+#Display: Pattern       0 384 0 384
+# BaF2 LED1 pattern
+#Display: Pattern       1 384 0 384
+# BaF2 LED2 pattern
+#Display: Pattern       2 384 0 384
+# Veto LED pattern
+#Display: Pattern       3 384 0 384
+##
+#Display: 2D FPD_Hits 0 352 0 352 -1 CATSCore_Etot 800 0 800 -1
+#Display: 1D FPD_Hits 0 352 0 352
+#Display: 1D CATSCore_Etot 800 0 800

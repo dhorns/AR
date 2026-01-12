@@ -1,0 +1,30 @@
+## Offline file for running CATS + Tagger
+########################################################################
+##
+## Batch mode operation...redirect output directory for log files etc.
+BatchDir: logfiles/
+##
+##        Tree Name     	# branches	Process Type
+Name:     RawEvent_AR_Save	3		Raw
+##        Branch Name		Buffer size
+Branch:   RawEvent_Hits		32768
+Branch:	  RawEvent_Scalers	4192
+Branch:	  Mk1_Header        120000
+##
+## Directory to save any created ROOT files (include final / )
+Directory: scratch/
+##
+## Normally don't attempt to set eventsize manually
+##EventSize: 32768
+##
+## Analysis mode.
+Analysis: TA2UserAnalysis
+##
+## Analysis setup file
+AnalysisSetup: Analysis-CATSTagg.dat
+##
+## Set Server file
+#ServerSetup: ServerOffline-CATSTagg.dat
+ServerSetup: ServerOffline-JS.dat
+#
+Log-Hard-Error:

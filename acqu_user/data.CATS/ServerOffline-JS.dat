@@ -1,0 +1,144 @@
+##-----------------------------------------------------------------------
+##--Author	JRM Annand   13th Jan 2004
+##--Update	JRM Annand...
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data
+##
+## Parameter File: ServerSetup.dat
+## Default master parameter file for DataServer (data input for analysis)
+## Online data taking, merged ACQU & TAPS
+##
+##-----------------------------------------------------------------------
+## Number of Input streams (sources of data), Record length to write data
+## and switch 0/1 = no/yes to control data write
+##              Number streams	Record Len	Save Data
+Input-Streams:	1		524288		0
+##
+## Optional directory spec. If not specified File-Names must contain the full
+## directory path
+File-Directory:	CATS.2025.05/
+##
+## Specify each input stream
+## From disk file, ACQU (Mk2) format, save any output to file (save=1)
+## Input data record length, Output data record length
+##
+##              Source  Format  Save?   RecLen  Buffers Swap    MarkID
+Stream-Spec:    File    Mk2     0       524288   1024      0       400
+##
+## Now the list of data files to analyse
+##              File Name       1st rec Last rec
+##Beam
+#
+#Scattering
+#
+#Day6
+File-Name:	CATSTagg_31737.dat.xz  0   0
+File-Name:	CATSTagg_31738.dat.xz  0   0
+File-Name:	CATSTagg_31739.dat.xz  0   0
+File-Name:	CATSTagg_31740.dat.xz  0   0
+File-Name:	CATSTagg_31741.dat.xz  0   0
+File-Name:	CATSTagg_31742.dat.xz  0   0
+File-Name:	CATSTagg_31743.dat.xz  0   0
+#
+#Day5
+File-Name:	CATSTagg_31715.dat.xz  0   0
+File-Name:	CATSTagg_31716.dat.xz  0   0
+File-Name:	CATSTagg_31717.dat.xz  0   0
+File-Name:	CATSTagg_31718.dat.xz  0   0
+File-Name:	CATSTagg_31719.dat.xz  0   0
+File-Name:	CATSTagg_31720.dat.xz  0   0
+File-Name:	CATSTagg_31721.dat.xz  0   0
+File-Name:	CATSTagg_31722.dat.xz  0   0
+File-Name:	CATSTagg_31723.dat.xz  0   0
+File-Name:	CATSTagg_31724.dat.xz  0   0
+File-Name:	CATSTagg_31725.dat.xz  0   0
+File-Name:	CATSTagg_31726.dat.xz  0   0
+File-Name:	CATSTagg_31727.dat.xz  0   0
+File-Name:	CATSTagg_31728.dat.xz  0   0
+File-Name:	CATSTagg_31729.dat.xz  0   0
+File-Name:	CATSTagg_31730.dat.xz  0   0
+File-Name:	CATSTagg_31731.dat.xz  0   0
+File-Name:	CATSTagg_31732.dat.xz  0   0
+File-Name:	CATSTagg_31733.dat.xz  0   0
+File-Name:	CATSTagg_31734.dat.xz  0   0
+File-Name:	CATSTagg_31735.dat.xz  0   0
+File-Name:	CATSTagg_31736.dat.xz  0   0
+#
+#Day4
+File-Name:	CATSTagg_31691.dat.xz  0   0
+File-Name:	CATSTagg_31692.dat.xz  0   0
+File-Name:	CATSTagg_31693.dat.xz  0   0
+File-Name:	CATSTagg_31694.dat.xz  0   0
+File-Name:	CATSTagg_31695.dat.xz  0   0
+File-Name:	CATSTagg_31696.dat.xz  0   0
+File-Name:	CATSTagg_31697.dat.xz  0   0
+File-Name:	CATSTagg_31698.dat.xz  0   0
+File-Name:	CATSTagg_31699.dat.xz  0   0
+File-Name:	CATSTagg_31700.dat.xz  0   0
+File-Name:	CATSTagg_31701.dat.xz  0   0
+File-Name:	CATSTagg_31702.dat.xz  0   0
+File-Name:	CATSTagg_31703.dat.xz  0   0
+File-Name:	CATSTagg_31704.dat.xz  0   0
+File-Name:	CATSTagg_31705.dat.xz  0   0
+File-Name:	CATSTagg_31706.dat.xz  0   0
+File-Name:	CATSTagg_31707.dat.xz  0   0
+File-Name:	CATSTagg_31708.dat.xz  0   0
+File-Name:	CATSTagg_31709.dat.xz  0   0
+File-Name:	CATSTagg_31710.dat.xz  0   0
+File-Name:	CATSTagg_31711.dat.xz  0   0
+File-Name:	CATSTagg_31712.dat.xz  0   0
+File-Name:	CATSTagg_31713.dat.xz  0   0
+File-Name:	CATSTagg_31714.dat.xz  0   0
+#
+#Day3
+File-Name:	CATSTagg_31677.dat.xz  0   0
+File-Name:	CATSTagg_31678.dat.xz  0   0
+File-Name:	CATSTagg_31679.dat.xz  0   0
+File-Name:	CATSTagg_31680.dat.xz  0   0
+File-Name:	CATSTagg_31681.dat.xz  0   0
+File-Name:	CATSTagg_31682.dat.xz  0   0
+File-Name:	CATSTagg_31683.dat.xz  0   0
+File-Name:	CATSTagg_31684.dat.xz  0   0
+File-Name:	CATSTagg_31685.dat.xz  0   0
+File-Name:	CATSTagg_31686.dat.xz  0   0
+File-Name:	CATSTagg_31687.dat.xz  0   0
+File-Name:	CATSTagg_31688.dat.xz  0   0
+File-Name:	CATSTagg_31689.dat.xz  0   0
+File-Name:	CATSTagg_31690.dat.xz  0   0
+#
+#Day2
+File-Name:	CATSTagg_31665.dat.xz  0   0
+File-Name:	CATSTagg_31666.dat.xz  0   0
+File-Name:	CATSTagg_31667.dat.xz  0   0
+File-Name:	CATSTagg_31668.dat.xz  0   0
+File-Name:	CATSTagg_31669.dat.xz  0   0
+File-Name:	CATSTagg_31670.dat.xz  0   0
+File-Name:	CATSTagg_31671.dat.xz  0   0
+File-Name:	CATSTagg_31672.dat.xz  0   0
+File-Name:	CATSTagg_31673.dat.xz  0   0
+File-Name:	CATSTagg_31674.dat.xz  0   0
+File-Name:	CATSTagg_31675.dat.xz  0   0
+File-Name:	CATSTagg_31676.dat.xz  0   0
+#
+#Day1
+File-Name:	CATSTagg_31653.dat.xz  0   0
+File-Name:	CATSTagg_31654.dat.xz  0   0
+File-Name:	CATSTagg_31655.dat.xz  0   0
+File-Name:	CATSTagg_31656.dat.xz  0   0
+File-Name:	CATSTagg_31657.dat.xz  0   0
+File-Name:	CATSTagg_31658.dat.xz  0   0
+File-Name:	CATSTagg_31659.dat.xz  0   0
+File-Name:	CATSTagg_31660.dat.xz  0   0
+File-Name:	CATSTagg_31661.dat.xz  0   0
+File-Name:	CATSTagg_31662.dat.xz  0   0
+File-Name:	CATSTagg_31663.dat.xz  0   0
+File-Name:	CATSTagg_31664.dat.xz  0   0
+#
+#Day0
+#InBeamCalibration 
+#File-Name:	CATSTagg_31648.dat.xz  0   0
+#File-Name:	CATSTagg_31649.dat.xz  0   0
+#File-Name:	CATSTagg_31650.dat.xz  0   0
+#File-Name:	CATSTagg_31651.dat.xz  0   0
+#File-Name:	CATSTagg_31652.dat.xz  0   0

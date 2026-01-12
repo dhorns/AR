@@ -1,0 +1,49 @@
+##-----------------------------------------------------------------------
+##--Author	JRM Annand   13th Jan 2004
+##--Update	JRM Annand...
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data
+##
+## Parameter File: ServerSetup.dat
+## Default master parameter file for DataServer (data input for analysis)
+## Online data taking, merged ACQU & TAPS
+##
+##-----------------------------------------------------------------------
+## Number of Input streams (sources of data), Record length to write data
+## and switch 0/1 = no/yes to control data write
+##              Number streams	Record Len	Save Data
+Input-Streams:	1		524288		0
+##
+## Optional directory spec. If not specified File-Names must contain the full
+## directory path
+#File-Directory:	CATS.2024.09/
+File-Directory:	CATS.2025.05/
+##
+## Specify each input stream
+## From disk file, ACQU (Mk2) format, save any output to file (save=1)
+## Input data record length, Output data record length
+##
+##              Source  Format  Save?   RecLen  Buffers Swap    MarkID
+Stream-Spec:    File    Mk2     0       524288   1024      0       400
+##
+## Now the list of data files to analyse
+##              File Name       1st rec Last rec
+##
+#
+# September 2024
+#
+#File-Name:	CATSTagg_31417.dat  0   0
+#File-Name:	CATSTagg_31417.dat.xz  0   0
+#
+# May 2025
+#
+File-Name:	CATSTagg_31728.dat.xz  0   0
+File-Name:	CATSTagg_31729.dat.xz  0   0
+File-Name:	CATSTagg_31730.dat.xz  0   0
+File-Name:	CATSTagg_31731.dat.xz  0   0
+File-Name:	CATSTagg_31732.dat.xz  0   0
+File-Name:	CATSTagg_31733.dat.xz  0   0
+File-Name:	CATSTagg_31734.dat.xz  0   0
+#
+## END

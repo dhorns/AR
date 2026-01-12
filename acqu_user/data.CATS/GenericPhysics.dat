@@ -1,0 +1,9 @@
+Target: 0. 0. 0.	938.71
+#
+##Particle data group database,		max # particles
+ParticleID:	      			16
+#
+##Output tree to ROOT file
+RootTree-File-Name:   Acqu
+#SavePartTree: PartTree.root
+Initialise:
