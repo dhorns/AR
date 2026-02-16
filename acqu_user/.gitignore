@@ -4,9 +4,6 @@
 # shall only contain 
 # configuration text files!
 /scratch
-/output
-/batch
-/Thread*.txt
 *.log
 /evgen/
 /simfiles/
