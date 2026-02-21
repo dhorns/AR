@@ -5,7 +5,8 @@
 ############################################################
 #
 # Set Target parameters (used by TA2Physics.cc)
-Target:	0. 0. 0.	938.271  
+#Target:	0. 0. 0.	938.271  
+Target:	0. 0. 0.	11174.7
 #
 ############################################################
 # Set Physics class input parameters
@@ -62,8 +63,12 @@ Display: 1D TaggerPi0Time	1200	-600	600
 Display: 1D PromptRandomRatio	100	0	1
 Display: 1D TaggerChannelPrompt 352	0 	352
 Display: 1D TaggerChannelRandom 352	0 	352
-Display: 1D MissingMassPrompt 	300	900 	1200
-Display: 1D MissingMassRandom 	300	900 	1200
+#Display: 1D MissingMassPrompt 	300	900 	1200
+#Display: 1D MissingMassRandom 	300	900 	1200
+Display: 1D MissingMassPrompt 	500	11000	11500
+Display: 1D MissingMassRandom 	500	11000	11500
+Display: 1D MissingEnergyPrompt 200	-100	100
+Display: 1D MissingEnergyRandom 200	-100	100
 Display: 1D PhotonThetaPrompt	180	0	180
 Display: 1D PhotonThetaRandom	180	0	180
 Display: 1D PhotonPhiPrompt	360	-180	180

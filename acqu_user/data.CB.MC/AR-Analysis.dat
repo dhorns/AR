@@ -23,9 +23,9 @@ MultiADC:       3            5000          5319        30    30    30
 #for details of detector (PID, NaI, BaF2, ...) options
 #           Name     Class		           Configuration file
 Apparatus:  TAGG     TA2Tagger       		   AR-Analysis-Tagger.dat
-#Apparatus:  CATSApp  TA2GenericApp                 Apparatus-CATS.dat
 Apparatus:  CB       TA2CentralApparatus           AR-Analysis-CentApp.dat
 Apparatus:  TAPS     TA2Taps         		   AR-Analysis-TAPS.dat
+#Apparatus:  CATSApp  TA2GenericApp                 Apparatus-CATS.dat
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -56,7 +56,8 @@ Initialise:
 Period:  10000         root/macros/PeriodMacro.C   PeriodMacro()
 #
 #        Macro file name  		Macro funcion
-Finish:	 root/macros/Finish.C	FinishBasic("histograms/ARH")
+Finish:	 root/macros/Finish.C	FinishBasic("histograms/ARH_comptonC12")
+#Finish:	 root/macros/Finish.C	FinishBasic("histograms/ARH_pi0C12")
 #Finish:	 root/macros/FinishMacro.C	FinishMacro("ARHistograms_MC.root")
 #Finish:	 root/macros/FinishBatch.C	FinishBatch()
 #Finish:	 root/macros/FinishBatch.C	FinishBatch("A2G4")

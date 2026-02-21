@@ -131,6 +131,8 @@ class TA2Pi0Compton : public TA2Physics {
 	Int_t*		fTaggerChannelRandom;
 	Double_t*	fMissingMassPrompt;
 	Double_t*	fMissingMassRandom;
+	Double_t*	fMissingEnergyPrompt;
+	Double_t*	fMissingEnergyRandom;
 	Double_t*	fPhotonThetaPrompt;
 	Double_t*	fPhotonThetaRandom;
 	Double_t*	fPhotonPhiPrompt;
