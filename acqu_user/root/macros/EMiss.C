@@ -40,7 +40,7 @@ void EMiss( UInt_t rebin = 1)
 	TCanvas *c2 = new TCanvas ( "c2", "EMissS", 300, 400, 500, 500);
 	EM_S->Draw();
 
-//	c1->Print( "EMiss.pdf");
+	c1->Print( "plots/EMiss.pdf");
 
 }
 
@@ -67,7 +67,7 @@ void EMissCut( UInt_t rebin = 1)
 	EMC_S->Draw();
 	EMC_S->GetXaxis()->SetRangeUser( -20, 20);
 
-	c2->Print( "EMissCut.pdf");
+	c2->Print( "plots/EMissCut.pdf");
 
 }
 void EMiss2D( UInt_t rebin = 1)
@@ -88,7 +88,7 @@ void EMiss2D( UInt_t rebin = 1)
 	proj = EM2D_S->ProjectionY( "Em");
 	proj->Draw();
 
-//	c1->Print( "EMiss.pdf");
+//	c1->Print( "plots/EMiss.pdf");
 
 }
 
@@ -139,6 +139,6 @@ void TaggerTime( UInt_t rebin = 1)
 	cout << "  ratio = " << ratio;
 	cout << endl;
 
-	c1->Print( "TaggerTime.pdf");
+	c1->Print( "plots/TaggerTime.pdf");
 
 }
