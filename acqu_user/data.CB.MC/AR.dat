@@ -52,13 +52,6 @@ Branch:   mposx         1024
 Branch:   mposy         1024
 Branch:   mposz         1024
 Branch:   emwpc         1024
-#
-# for CATS only
-#Branch:   ncats		4
-#Branch:   icats		2048
-#Branch:   ecats		2048
-#Branch:   tcats		2048
-#
 #Branch:   mc_evt_id     8
 #Branch:   mc_rnd_id     8
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -33,6 +33,7 @@ MultiADC:       1       10000    10100
 ##
 ##		Name		Class			Setup file
 Apparatus:      TAGG            TA2Tagger   		Apparatus-Tagger855.dat
+#Apparatus:      TAGG            TA2Tagger   		AR-Analysis-Tagger.dat
 Apparatus:      CATSApp         TA2GenericApp           Apparatus-CATS.dat
 ##
 Reconstruct-Analysis:

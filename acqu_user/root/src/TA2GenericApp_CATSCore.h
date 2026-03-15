@@ -125,16 +125,20 @@ inline void TA2GenericApp_CATSCore::ReadDecoded()
   Float_t* time = NULL;
   if (fIsTime) time = (Float_t*)(fEvent[EI_tcatscore]);
 
-/*
-  std::cout << "nHits = " << nHits << std::endl;
+//  std::cout << "Core nHits = " << nHits << std::endl;
   for ( UInt_t ii = 0; ii < nHits; ii++)
   {
-	  std::cout << ii;
-	  std::cout << "  " << hit[ii];
-	  std::cout << "  " << energy[ii]*1000;
-	  std::cout << "  " << time[ii];
-	  std::cout << std::endl;
+//	  std::cout << ii;
+//	  std::cout << "  " << hit[ii];
+//	  std::cout << "  " << energy[ii]*1000;
+//	  std::cout << "  " << time[ii];
+//	  std::cout << std::endl;
+
+	  fEnergy[ii] = energy[ii]*1000;
+	  fTime[ii] = time[ii];
   }
+
+/*
 
   fNhits = 0;  // init valid hits
   Double_t total = 0;  // total energy

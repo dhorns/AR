@@ -126,14 +126,20 @@ inline void TA2GenericApp_CATSAnnulus::ReadDecoded()
   Float_t* time = NULL;
   if (fIsTime) time = (Float_t*)(fEvent[EI_tcatsann]);
 
-  std::cout << "Annulus nHits = " << nHits << std::endl;
+//  std::cout << "Annulus nHits = " << nHits << std::endl;
+
+  // This is temporary!  I'm adding all of the Annulus energy here.
+  fEnergy[0] = 0;
   for ( UInt_t ii = 0; ii < nHits; ii++)
   {
-	  std::cout << ii;
-	  std::cout << "  " << hit[ii];
-	  std::cout << "  " << energy[ii]*1000;
-	  std::cout << "  " << time[ii];
-	  std::cout << std::endl;
+//	  std::cout << ii;
+//	  std::cout << "  " << hit[ii];
+//	  std::cout << "  " << energy[ii]*1000;
+//	  std::cout << "  " << time[ii];
+//	  std::cout << std::endl;
+
+	  fEnergy[0] += energy[ii]*1000;
+	  fTime[ii] = time[ii];
   }
 
 /*

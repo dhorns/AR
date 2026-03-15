@@ -516,7 +516,15 @@ void TA2Ladder::ReadDecoded( )
   Double_t Ee = ((TA2Tagger*)fParent)->GetBeamEnergy() - 1000.0*energy[3];
 
   // Determine nearest channel with energy smaller than this energy
-  UInt_t iHit = TMath::BinarySearch( fNelem, fECalibration, Ee );
+//  UInt_t iHit = TMath::BinarySearch( fNelem, fECalibration, Ee );
+
+//**
+	// This needed to be fixed for the new Tagger Calibration format!
+	Double_t fECalNeg[400];
+	UInt_t i;
+	for ( i = 0; i < fNelem; i++) fECalNeg[i] = -fECalibration[i];
+	UInt_t iHit = TMath::BinarySearch( fNelem, fECalNeg, -Ee );
+//**
 
   // Ensure that we do not go out of range, also handles the above returning -1
   if( iHit >= fNelem ) iHit = 0;
@@ -546,9 +554,11 @@ void TA2Ladder::ReadDecoded( )
           centHi = fECalibration[iHit] + 0.5*fEWidth[iHit];
       }
       // Otherwise set the limits as midpoints between this channel and its neighbors
-      else{
+      else
+		{
           if( iHit > 0 ) centLo = 0.5*(fECalibration[iHit-1]+fECalibration[iHit]);
           else centLo = (fECalibration[iHit]-0.5*(fECalibration[iHit+1]-fECalibration[iHit]));
+
           if( iHit < (fNelem-1) ) centHi = 0.5*(fECalibration[iHit]+fECalibration[iHit+1]);
           else centHi = (fECalibration[iHit]+0.5*(fECalibration[iHit]-fECalibration[iHit-1]));
       }
@@ -559,25 +569,38 @@ void TA2Ladder::ReadDecoded( )
   if( iHit < (fNelem-1) && fEWidth[iHit] ) nextLo = fECalibration[iHit+1] - 0.5*fEWidth[iHit+1];
   else nextLo = centHi;
 
-  // Fill central element if energy is within range, this check may seem extraneous but
-  // it's necessary for cases outside of the range of the tagger, or for detectors like
-  // the end-point tagger, which have gaps between detectors
-  if( (Ee >= centLo) && (Ee < centHi) ){
-      fHits[fNhits] = fHitsAll[fNhits] = iHit;
+  // **
+  // Kluge for MC Data
+  // **
+	if ( gAR->GetProcessType() == EMCProcess) {
+		fHits[fNhits] = fHitsAll[fNhits] = iHit;
       if(fIsECalib) fEelecOR[fNhits] = fECalibration[iHit];
       if(fIsTime) fTimeOR[fNhits] = 0.0;
       if(fIsTime) fTimeORAll[fNhits] = 0.0;
       fNhits++;
+	}
+	else
+	{
+	  // Fill central element if energy is within range, this check may seem extraneous but
+	  // it's necessary for cases outside of the range of the tagger, or for detectors like
+	  // the end-point tagger, which have gaps between detectors
+	  if( (Ee >= centLo) && (Ee < centHi) ){
+	      fHits[fNhits] = fHitsAll[fNhits] = iHit;
+	      if(fIsECalib) fEelecOR[fNhits] = fECalibration[iHit];
+	      if(fIsTime) fTimeOR[fNhits] = 0.0;
+	      if(fIsTime) fTimeORAll[fNhits] = 0.0;
+	      fNhits++;
 
-      // Fill next channel too for double hit
-      if( Ee >= nextLo ){
-          fHits[fNhits] = fHitsAll[fNhits] = iHit + 1;
-          if(fIsECalib) fEelecOR[fNhits] = fECalibration[iHit+1];
-          if(fIsTime) fTimeOR[fNhits] = 0.0;
-          if(fIsTime) fTimeORAll[fNhits] = 0.0;
-          fNhits++;
-      }
-  }
+	      // Fill next channel too for double hit
+	      if( Ee >= nextLo ){
+	          fHits[fNhits] = fHitsAll[fNhits] = iHit + 1;
+	          if(fIsECalib) fEelecOR[fNhits] = fECalibration[iHit+1];
+	          if(fIsTime) fTimeOR[fNhits] = 0.0;
+	          if(fIsTime) fTimeORAll[fNhits] = 0.0;
+	          fNhits++;
+	      }
+	  }
+	}
 
   fNhitsAll = fNhits;
 

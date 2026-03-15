@@ -458,19 +458,6 @@ void TA2CATSPhysics::LoadVariable( )
 void TA2CATSPhysics::Reconstruct() 
 {
 
-	TA2Particle taggerphoton;
-
-// Get # of Particles from detectors
-
-	fTAGGNParticle	= fTAGG->GetNparticle();
-	fNTagg = fTAGGNParticle;
-
-// get the electron beam energy
-	Double_t eBeamEnergy = fTAGG->GetBeamEnergy();
-        
-// get the channel electron energies
-	const Double_t* fpdEnergy = fLADD->GetECalibration();
-
 	Int_t elem;
 	Int_t *rhits;
 	Int_t adc_raw;
@@ -492,34 +479,47 @@ void TA2CATSPhysics::Reconstruct()
 		}
 	}
 
+	fCATSCoreEnergy = 0;
 
-// CATS Core
+	// CATS Core
 	if ( fCATSCore)
 	{
 		if ( fCATSCore->IsRawHits())
 		{
 
-			// ADCs
-			nCATSCoreADCs = fCATSCore->GetNADChits();
-			rhits = fCATSCore->GetRawEnergyHits();
-
-			sum_gain = 0;
-			for ( i = 0; i < nCATSCoreADCs; i++)
+			// Real Data
+			if ( gAR->GetProcessType() != EMCProcess)
 			{
-				elem = rhits[i];
-				adc_raw = (Int_t)fCATSCore->GetElement( elem)->GetRawADCValue();
-				adc_corr = SubtractPedestal( elem, adc_raw);
-				adc_gm = ApplyGainMatch( elem, adc_corr);
 
-				sum_gain += adc_gm;
+				// ADCs
+				nCATSCoreADCs = fCATSCore->GetNADChits();
+				rhits = fCATSCore->GetRawEnergyHits();
+
+				sum_gain = 0;
+				for ( i = 0; i < nCATSCoreADCs; i++)
+				{
+					elem = rhits[i];
+					adc_raw = (Int_t)fCATSCore->GetElement( elem)->GetRawADCValue();
+					adc_corr = SubtractPedestal( elem, adc_raw);
+					adc_gm = ApplyGainMatch( elem, adc_corr);
+
+					sum_gain += adc_gm;
+				}
+				if ( nCATSCoreADCs != 0) adc_averaged = sum_gain/nCATSCoreADCs;
+				else adc_averaged = 0;
+
+				core_energy = ApplyEnergyCalibration( adc_averaged);
+
+				fCATSCoreADCAverage = adc_averaged;
+				fCATSCoreEnergy = core_energy;
 			}
-			if ( nCATSCoreADCs != 0) adc_averaged = sum_gain/nCATSCoreADCs;
-			else adc_averaged = 0;
 
-			core_energy = ApplyEnergyCalibration( adc_averaged);
-
-			fCATSCoreADCAverage = adc_averaged;
-			fCATSCoreEnergy = core_energy;
+			// MC Data
+			else
+			{
+				fCATSCoreEnergy = fCATSCore->GetEnergy( 0);
+				if ( fCATSCoreEnergy > 1000) fCATSCoreEnergy = 0;
+			}
 		}
 
 		// An attempt to get a single time from CATS, presumed to be the one that gave the trigger.
@@ -535,33 +535,44 @@ void TA2CATSPhysics::Reconstruct()
 			elem = fCATSCore->GetHits( i);
 			if(fCATSCore->IsTime()) {
 				fCATSTime = fCATSCore->GetTime( elem);
-//				std::cout << i << "  " << elem << "  " << fCATSCore->GetTime( elem) << "  " << fCATSTime << std::endl; 
 				break;
 			}
 		}
 	}
 
 	Double_t sum_annulus, annulus_energy;
+	sum_annulus = 0;
+	annulus_energy = 0;
+
+	fCATSAnnulusEnergy = 0;
 
 // CATS Annulus
 	if ( fCATSAnnulus)
 	{
 		if ( fCATSAnnulus->IsRawHits())
 		{
-			nCATSAnnulusADCs = fCATSAnnulus->GetNADChits();
-			rhits = fCATSAnnulus->GetRawEnergyHits();
-
-			sum_annulus = 0;
-			for ( i = 0; i <nCATSAnnulusADCs; i++)
+			// Real Data
+		 	if ( gAR->GetProcessType() != EMCProcess)
 			{
-				elem = rhits[i];
-				adc_raw = (Int_t)fCATSAnnulus->GetElement( elem)->GetRawADCValue();
-				annulus_energy = AnnulusCalibration( elem, adc_raw);
-				sum_annulus += annulus_energy;
+				nCATSAnnulusADCs = fCATSAnnulus->GetNADChits();
+				rhits = fCATSAnnulus->GetRawEnergyHits();
+
+				for ( i = 0; i <nCATSAnnulusADCs; i++)
+				{
+					elem = rhits[i];
+					adc_raw = (Int_t)fCATSAnnulus->GetElement( elem)->GetRawADCValue();
+					annulus_energy = AnnulusCalibration( elem, adc_raw);
+					sum_annulus += annulus_energy;
+				}
+			}
+			// MC Data
+			else
+			{
+				sum_annulus = fCATSAnnulus->GetEnergy( 0);
 			}
 		}
+		fCATSAnnulusEnergy = sum_annulus;
 	}
-	fCATSAnnulusEnergy = sum_annulus;
 
 	fCATSEnergy = fCATSCoreEnergy + fCATSAnnulusEnergy;
 
@@ -583,35 +594,62 @@ void TA2CATSPhysics::Reconstruct()
 	CATSpz = CATSmom*cos( CATSth);
 	p4CATS.SetPxPyPzE( CATSpx, CATSpy, CATSpz, CATSmom);
 
+//
+// TAGGER STUFF
+//
+	// Number of tagger particles
+	fTAGGNParticle	= fTAGG->GetNparticle();
+	fNTagg = fTAGGNParticle;
+	Double_t eBeamEnergy = fTAGG->GetBeamEnergy();
+
+// get the channel electron energies
+	const Double_t* fpdEnergy = fLADD->GetECalibration();
+
+	TA2Particle taggerphoton;
+        
 // Tagger Multi-Hit stuff
 	// Get the tagger hit multiplicity
-	Int_t m = fLADD->GetNMultihit();
+//	Int_t m = fLADD->GetNMultihit();
 
 	// Count the total number of tagger hits
-	Int_t nhits = 0;
-	for ( i = 0; i < m; i++) nhits += fLADD->GetNhitsM(i);
+//	Int_t nhits = 0;
+//	for ( i = 0; i < m; i++) nhits += fLADD->GetNhitsM(i);
 
 	fTaggerPhotonNhits = 0;
 	fNPrompt = 0;
 	fNRandom = 0;
 
-	Int_t chan;
+// read-in all the hits
+// loop over hit multiplicity
+//	for ( i = 0; i < m; i++)
+//	{
 
-	// read-in all the hits
-  	// loop over hit multiplicity
-//  	for ( i = 0; i < m; i++)
-	// Multiplicity 1 only
-//  	for ( i = 0; i < 1; i++)
-  	{
-		i = 0;
-		// number of hits of current multiplicity
-		nhits = fLADD->GetNhitsM( i);
+		Int_t nhits;
+		Int_t chan;
+		Int_t* hits;
+		Double_t* time;
 
-		// hit array of current multiplicity
-		Int_t* hits = fLADD->GetHitsM( i);
+		if ( gAR->GetProcessType() == EMCProcess)
+		{
+			nhits = fLADD->GetNhits();
+			hits = fLADD->GetHits();
+			time = fLADD->GetTimeOR();
+		}
+		else
+		{
 
-		// time array of current multiplicity
-		Double_t* time = fLADD->GetTimeORM( i);
+			// Multiplicity 1 only
+			i = 0;
+
+//			// number of hits of current multiplicity
+			nhits = fLADD->GetNhitsM( i);
+//
+//			// hit array of current multiplicity
+			hits = fLADD->GetHitsM( i);
+//
+//			// time array of current multiplicity
+			time = fLADD->GetTimeORM( i);
+		}
 
 		// loop over hits of current multiplicity
 		for ( j = 0; j < nhits; j++)
@@ -684,7 +722,7 @@ void TA2CATSPhysics::Reconstruct()
 
 			fTaggerPhotonNhits++;
 		}
-	}
+//	}
 
 // Apply BufferEnd to the end of all arrays
 	fTaggerPhotonHits[fTaggerPhotonNhits] = EBufferEnd;
