@@ -13,7 +13,6 @@
 #
 #         Tree Name     No. of branches   Process Type
 Name:     h12           44                MC
-#Name:     h12           38                MC
 #         Branch Name   Buffer size (bytes)
 Branch:   npart         4
 Branch:   dircos        4096
@@ -74,7 +73,8 @@ Branch:   mc_rnd_id     8
 # New In-Beam Simulated Data
 #TreeFile: g_300_0_0_out.root
 #TreeFile: a2G4.CATS/g_300_40_180_out.root
-TreeFile: a2G4.CATS/compton_c_300_out.root
+TreeFile: a2G4.CATS/pi0_c_300_out.root
+#TreeFile: a2G4.CATS/compton_c_300_out.root
 #
 ##
 ## Batch mode operation...redirect output directory for log files etc.

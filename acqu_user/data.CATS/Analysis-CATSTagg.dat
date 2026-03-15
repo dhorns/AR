@@ -33,7 +33,6 @@ MultiADC:       1       10000    10100
 ##
 ##		Name		Class			Setup file
 Apparatus:      TAGG            TA2Tagger   		Apparatus-Tagger855.dat
-#Apparatus:      TAGG            TA2Tagger   		AR-Analysis-Tagger.dat
 Apparatus:      CATSApp         TA2GenericApp           Apparatus-CATS.dat
 ##
 Reconstruct-Analysis:
@@ -44,7 +43,7 @@ Physics-Analysis:	PHYS	TA2CATSPhysics		CATSPhysics.dat
 ##
 Initialise:
 ##
-Period:	100000	root/macros/PeriodMacro.C PeriodMacro()
+Period:	10000	root/macros/PeriodMacro.C PeriodMacro()
 ##
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day1")
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day2")
@@ -52,7 +51,11 @@ Period:	100000	root/macros/PeriodMacro.C PeriodMacro()
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day4")
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day5")
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day6")
-Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_all")
+#
+Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_Pi0")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_Compton")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_InBeam")
+#
 ###
 #Display: All
 #Display: ADC 20000 20511
