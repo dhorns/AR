@@ -8,6 +8,7 @@ enum {
 	ECATSCorePedestals,
 	ECATSCoreGainDrift,
 	ECATSCoreECal,
+	ECATSSmearing,
 	EMissingEnergyCut,
 	EProduceTreeFile,
 	ETreeFileName
@@ -19,6 +20,7 @@ static const Map_t kInputs[] = {
 	{"CATS-Core-Pedestals:",			ECATSCorePedestals},
 	{"CATS-Core-GainDrift:",			ECATSCoreGainDrift},
 	{"CATS-Core-Energy-Calibration:",ECATSCoreECal},
+	{"CATS-Smearing-Value:",			ECATSSmearing},
 	{"Missing-Energy-Cut:",				EMissingEnergyCut},
 	{"Produce-Tree-File:",				EProduceTreeFile},
 	{"Tree-File-Name:",					ETreeFileName},
@@ -75,6 +77,8 @@ TA2CATSPhysics::TA2CATSPhysics( const char* name, TA2Analysis* analysis )
 	fEmissCutR = NULL;
 
 	fCATSTaggerTime   = NULL;
+
+	fRandom = new TRandom();
 
 	AddCmdList(kInputs);
 }
@@ -140,6 +144,14 @@ void TA2CATSPhysics::SetConfig(Char_t* line, Int_t key)
 				return;
 			}
 		break;
+		case ECATSSmearing:
+			//  CATS Simulation Energy Smearing
+			if( sscanf( line, "%lf\n", &fESmear) != 1 )
+			{
+				PrintError( line, "<Error: CATS Energy Smearing Value not set correctly>");
+				return;
+			}
+		break;
 		case EMissingEnergyCut:
 			//  Missing Energy Cut
 			if( sscanf( line, "%d %d\n", &fMissingEnergyCut1, &fMissingEnergyCut2 ) != 2 )
@@ -173,6 +185,17 @@ void TA2CATSPhysics::SetConfig(Char_t* line, Int_t key)
 		break;
 	}
 
+}
+
+//Define the CATS MC energy smearing function 
+Double_t TA2CATSPhysics::MCEnergySmear( Double_t unsmearedE)
+{
+	Double_t Esmeared, Res;
+	
+	Res = unsmearedE*fESmear;
+	Esmeared = unsmearedE + fRandom->Gaus( 0.0, Res);
+
+	return( Esmeared);
 }
 
 
@@ -465,6 +488,8 @@ void TA2CATSPhysics::Reconstruct()
 	Double_t adc_averaged, core_energy;
 	Bool_t shield;
 
+	Double_t CoreE, AnnulusE;
+
 // Do CATS Shield first
 
 // CATS Shield
@@ -517,7 +542,8 @@ void TA2CATSPhysics::Reconstruct()
 			// MC Data
 			else
 			{
-				fCATSCoreEnergy = fCATSCore->GetEnergy( 0);
+				CoreE = fCATSCore->GetEnergy( 0);
+				fCATSCoreEnergy = MCEnergySmear( CoreE);
 				if ( fCATSCoreEnergy > 1000) fCATSCoreEnergy = 0;
 			}
 		}
@@ -568,7 +594,8 @@ void TA2CATSPhysics::Reconstruct()
 			// MC Data
 			else
 			{
-				sum_annulus = fCATSAnnulus->GetEnergy( 0);
+				AnnulusE = fCATSAnnulus->GetEnergy( 0);
+				sum_annulus = MCEnergySmear( AnnulusE);
 			}
 		}
 		fCATSAnnulusEnergy = sum_annulus;

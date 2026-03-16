@@ -52,9 +52,9 @@ Period:	10000	root/macros/PeriodMacro.C PeriodMacro()
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day5")
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day6")
 #
-Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_Pi0")
+#Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_Pi0")
 #Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_Compton")
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_InBeam")
+Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_InBeam")
 #
 ###
 #Display: All

@@ -25,6 +25,10 @@ CATS-Core-GainDrift: 1 1 1 1 1 1 1
 # CATS Core Energy Calibration Parameters
 CATS-Core-Energy-Calibration: 5.1984228 0.2314023 0.0000046
 #
+#
+# CATS MC Simulation Smearing Value
+CATS-Smearing-Value: 0.10
+#
 # Set Missing Energy Cut
 Missing-Energy-Cut: -10 10
 #
