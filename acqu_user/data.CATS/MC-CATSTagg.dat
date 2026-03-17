@@ -75,7 +75,7 @@ TreeFile: a2G4.CATS/compton_c_300_out.root
 BatchDir: logfiles/
 ##
 ## Directory to save any created ROOT files (include final / )
-Directory: scratch/
+Directory: ARout/CATS/
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
