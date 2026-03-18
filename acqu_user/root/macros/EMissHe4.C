@@ -25,10 +25,20 @@ const Double_t rPR = 0.0636;
 
 TH2D *hS2;
 
-//void Init()
-//{
-//	ReadTagEng( "includes/tageng883.dat");
-//}
+void ReadTagEng883()
+{
+	UInt_t i;
+	Double_t eff, deff;
+	TString file = "includes/tageng883.dat";
+
+	ifstream inFile( file);
+	while( !inFile.eof()) {
+		inFile >> i >> eff >> deff;
+		tdata[i].energy = deff;
+		tdata[i].egamma = (int)(deff + 0.5);
+	}
+	inFile.close();
+}
 
 void EMissHe4()
 {
@@ -36,8 +46,10 @@ void EMissHe4()
 	Double_t par[3];
 	TString name;
 
-	TCanvas *c1 = new TCanvas ( "c1", "EMissHe4", 200, 350, 1200, 500);
-	c1->Divide( 4, 1);
+	gROOT->ProcessLine( "ReadTagEng883()");
+
+	TCanvas *c1 = new TCanvas ( "c1", "EMissHe4", 200, 350, 1000, 500);
+	c1->Divide( 3, 1);
 
 	c1->cd( 1);
 	hP->SetTitle( "Prompt");
@@ -54,14 +66,8 @@ void EMissHe4()
 	hS->Add( hR, -rPR);
 	hS->Draw();
 
-	c1->cd( 4);
-//	TH2D *hS2 = (TH2D*)hS->Clone( "binned");
 	hS2 = (TH2D*)hS->Clone( "binned");
 	hS2->SetTitle( "Binned");
-//	hS2->GetYaxis()->SetRange( 50, 50);
-//	TH1D *proj = hS2->ProjectionX( "projX");
-//	proj = hS2->ProjectionX( "projX");
-	hS2->Draw();
 
 	c1->Print( "plots/EMissHe4.pdf");
 

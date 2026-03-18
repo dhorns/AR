@@ -64,7 +64,8 @@ Initialise:
 ## Macros
 Period:  10000	root/macros/PeriodMacro.C	PeriodMacro()
 #EndFile:	EndFileMacro.C  EndFileMacro()
-Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/ARH")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/ARH")
+Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/MC_He4")
 ##
 ########################################################################
 ## Display Histograms

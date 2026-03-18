@@ -349,21 +349,21 @@ Element: 327 0.0 0.0 0.0 0.0   1020M0 -700.0 700.0 -4050.0 0.1000 0 0 0  133.8 0
 ##
 Initialise: 
 Display: 1D Nhits       96 0 96
-Display: 1D NhitsPrompt 32 0 32
-Display: 1D NhitsRand   32 0 32
+#Display: 1D NhitsPrompt 32 0 32
+#Display: 1D NhitsRand   32 0 32
 Display: 1D Hits        328 0 328
-Display: 1D HitsPrompt  328 0 328
-Display: 1D HitsRand    328 0 328
-Display: 1D TimeOR     1200 -450.0 750.0
-Display: 1D TimeAll    1200 -450.0 750.0
+#Display: 1D HitsPrompt  328 0 328
+#Display: 1D HitsRand    328 0 328
+#Display: 1D TimeOR     1200 -450.0 750.0
+#Display: 1D TimeAll    1200 -450.0 750.0
 #Display: 1D Time  400 -200.0 200.0   0 328
-Display: 1D Eelect   1000 0 1000.0
-Display: 1D ScalerCurr 328 0 328
-Display: 1D ScalerAcc  328 0 328
-Display: 1D Doubles  	328 0 328
-Display: 1D NDoubles  	64 0 64
+#Display: 1D Eelect   1000 0 1000.0
+#Display: 1D ScalerCurr 328 0 328
+#Display: 1D ScalerAcc  328 0 328
+#Display: 1D Doubles  	328 0 328
+#Display: 1D NDoubles  	64 0 64
 #Display: 2D TimeOR   200 -200.0 200.0 -1 Hits 328 0 328 -1
 #Display: 2D TimeOR   200 -200.0 200.0 -1 Doubles 328 0 328 -1
-Display: 2D TimeOR   600 -450.0 750.0 -1 Hits 328 0 328 -1
-Display: 2D TimeOR   600 -450.0 750.0 -1 Doubles 328 0 328 -1
-Display: 2D TimeAll  600 -450.0 750.0 -1 Hits 328 0 328 -1
+#Display: 2D TimeOR   600 -450.0 750.0 -1 Hits 328 0 328 -1
+#Display: 2D TimeOR   600 -450.0 750.0 -1 Doubles 328 0 328 -1
+#Display: 2D TimeAll  600 -450.0 750.0 -1 Hits 328 0 328 -1

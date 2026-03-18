@@ -26,4 +26,3 @@ Display: 1D Nhit  	   100 0  100  -1
 #Display: 2D Ladder_Hits   352 0 352  -1 Ladder_Time 100 0 200 -1
 #Display: 2D FPD_Hits      288 0 288 -1 FPD_Hits 64 0 64 -1
 #Display: 2D FPD_TimeOR   100 -50  50 -1 FPD_TimeOR 100 -50 50 -1
-
