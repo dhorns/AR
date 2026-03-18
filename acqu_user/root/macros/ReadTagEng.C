@@ -11,6 +11,33 @@
 //
 //	TData data[352];
 
+void ReadTagEngNew( TString file)
+{
+	UInt_t i;
+	Double_t eff, deff;
+
+	ifstream inFile( file);
+//	if ( !inFile.is_open()) {
+//		cout << "Error opening file ";
+//		cout << file;
+//		cout << endl;
+//		break;
+//	}
+	while( !inFile.eof()) {
+		inFile >> i >> eff >> deff;
+		tdata[i].energy = deff;
+		tdata[i].egamma = (int)(deff + 0.5);
+//		cout << i;
+//		cout << " " << tdata[i].energy;
+//		cout << " " << tdata[i].egamma;
+//		cout << endl;
+//		tdata[i].denergy = deff/2;
+	}
+	inFile.close();
+}
+
+
+/*
 void ReadTagEng( TString file)
 {
 	UInt_t i;
@@ -96,3 +123,4 @@ void ReadTagEff( TString file)
 	}
 	inFile.close();
 }
+*/

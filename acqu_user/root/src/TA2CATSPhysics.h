@@ -138,6 +138,9 @@ class TA2CATSPhysics : public TA2Physics {
 	Double_t* fEmissCutR;
 	Double_t* fCATSTaggerTime;
 
+	Int_t* fTaggerPhotonHitsNSP;
+	Int_t* fTaggerPhotonHitsNSR;
+
 	public:
 
 	TA2CATSPhysics( const char*, TA2Analysis* );

@@ -43,18 +43,23 @@ Physics-Analysis:	PHYS	TA2CATSPhysics		CATSPhysics.dat
 ##
 Initialise:
 ##
-Period:	10000	root/macros/PeriodMacro.C PeriodMacro()
+Period:	100000	root/macros/PeriodMacro.C PeriodMacro()
+#Period:	10000	root/macros/PeriodMacro.C PeriodMacro()
 ##
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day1")
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day2")
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day3")
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day4")
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day5")
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/ARH_Day6")
+# DATA
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day1")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day2")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day3")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day4")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day5")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day6")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_all")
+Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_InBeam")
 #
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_InBeam")
-Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_Pi0")
-#Finish:	root/macros/Finish.C	FinishBasic("scratch/MC_Compton")
+# MC
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/MC_InBeam")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/MC_Pi0")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/MC_Compton")
 #
 ###
 #Display: All

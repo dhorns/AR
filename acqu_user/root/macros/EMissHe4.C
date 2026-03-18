@@ -1,16 +1,34 @@
-//TFile he4_data( "ARout/CB/ARH.root");
-TFile he4_data( "ARH.root");
-//TH1D *EM_P = (TH1D*)he4_data.Get( "PHYS_MissingEnergyPromptPi0Cut");
-//TH1D *EM_R = (TH1D*)he4_data.Get( "PHYS_MissingEnergyRandomPi0Cut");
 
+// Tagger Energy
+typedef struct {
+
+	Int_t egamma;
+	Double_t energy;
+	Double_t denergy;
+
+} TData;
+
+TData tdata[328];
+
+// Histogram File
+TFile he4_data( "ARout/CB/ARH.root");
+
+// Tagger-Pi0 Time for Random Subtraction
 TH1D *tt = (TH1D*)he4_data.Get( "PHYS_TaggerPi0Time");
 
+// 2D Tagger Channel vs. Missing Energy
 TH2D *hP = (TH2D*)he4_data.Get( "PHYS_TaggerChannelPromptPi0_v_MissingEnergyPromptPi0");
 TH2D *hR = (TH2D*)he4_data.Get( "PHYS_TaggerChannelRandomPi0_v_MissingEnergyRandomPi0");
 
+// Prompt-Accidental Subtraction Ratio
 const Double_t rPR = 0.0636;
 
 TH2D *hS2;
+
+//void Init()
+//{
+//	ReadTagEng( "includes/tageng883.dat");
+//}
 
 void EMissHe4()
 {
@@ -18,7 +36,7 @@ void EMissHe4()
 	Double_t par[3];
 	TString name;
 
-	TCanvas *c1 = new TCanvas ( "c1", "EMissHe4", 20, 350, 1200, 500);
+	TCanvas *c1 = new TCanvas ( "c1", "EMissHe4", 200, 350, 1200, 500);
 	c1->Divide( 4, 1);
 
 	c1->cd( 1);
@@ -45,19 +63,34 @@ void EMissHe4()
 //	proj = hS2->ProjectionX( "projX");
 	hS2->Draw();
 
-//	c1->Print( "plots/EMissHe4.pdf");
+	c1->Print( "plots/EMissHe4.pdf");
 
 }
-void ProjEMiss( UInt_t lo, UInt_t hi)
+void ProjEMiss( UInt_t chan)
 {
+	UInt_t eg;
+	TString name;
 
-	TCanvas *c1 = new TCanvas ( "c1", "EMissHe4", 20, 20, 700, 500);
+	eg = tdata[chan].egamma;
 
-	hS2->GetYaxis()->SetRange( lo, hi);
+	TCanvas *c1 = new TCanvas ( "c1", "EMissHe4", 20, 350, 700, 500);
+
+	hS2->GetYaxis()->SetRange( chan, chan);
 	TH1D *proj = hS2->ProjectionX( "projX");
 	proj->Draw();
+	proj->SetTitle( "Missing Energy");
 
-//	c1->Print( "plots/EMissHe4.pdf");
+	TPaveText *pt = new TPaveText( 0.2, 0.4, 0.8, 0.9, "NDC");
+	pt->SetBorderSize( 0);
+	pt->SetFillStyle( 0);
+	pt->SetTextAlign( 12);
+	pt->SetTextSize( 0.05);
+	name = Form( "E_{#gamma} = %d MeV\n", eg);
+	pt->AddText( name);
+	pt->Draw();
+
+	name = Form( "plots/EMissHe4_%dMeV.pdf", eg);
+	c1->Print( name);
 
 }
 

@@ -77,6 +77,8 @@ TA2CATSPhysics::TA2CATSPhysics( const char* name, TA2Analysis* analysis )
 	fEmissCutR = NULL;
 
 	fCATSTaggerTime   = NULL;
+	fTaggerPhotonHitsNSP = NULL;
+	fTaggerPhotonHitsNSR = NULL;
 
 	fRandom = new TRandom();
 
@@ -403,6 +405,8 @@ void TA2CATSPhysics::PostInit()
 	fEmissCutP = new Double_t[8*328];
 	fEmissCutR = new Double_t[8*328];
 	fCATSTaggerTime = new Double_t[8*328];
+	fTaggerPhotonHitsNSP = new Int_t[8*328];
+	fTaggerPhotonHitsNSR = new Int_t[8*328];
 
 // Create Tree Files, Define Branches (if option is turned on "fProduceTreeFile ==1")
 
@@ -443,6 +447,9 @@ void TA2CATSPhysics::LoadVariable( )
 
 	TA2DataManager::LoadVariable( "CATSEnergyNoShieldPrompt",		fCATSEnergyNoShieldPrompt,		EDMultiX);
 	TA2DataManager::LoadVariable( "CATSEnergyNoShieldRandom",		fCATSEnergyNoShieldRandom,		EDMultiX);
+
+	TA2DataManager::LoadVariable( "TaggerHitsNSP",		fTaggerPhotonHitsNSP,	EISingleX);
+	TA2DataManager::LoadVariable( "TaggerHitsNSR",		fTaggerPhotonHitsNSR,	EISingleX);
 
 	TA2DataManager::LoadVariable( "EmissP",		fEmissP,		EDMultiX);
 	TA2DataManager::LoadVariable( "EmissR",		fEmissR,		EDMultiX);
@@ -712,6 +719,7 @@ void TA2CATSPhysics::Reconstruct()
 			if ( (fTaggerPhotonTime[fTaggerPhotonNhits] >= fPhotTimePL && fTaggerPhotonTime[fTaggerPhotonNhits] <= fPhotTimePR) ||
 			  	(gAR->GetProcessType() == EMCProcess) ) {
 
+				fTaggerPhotonHitsNSP[fNPrompt] = chan;
 				fCATSEnergyNoShieldPrompt[fNPrompt]  = fCATSEnergyNoShield;
 //				fEmissP[fNPrompt]  = Emiss;
 				fEmissP[fNPrompt]  = Emiss2;
@@ -731,6 +739,7 @@ void TA2CATSPhysics::Reconstruct()
 			// Random Hits
 			if (fTaggerPhotonTime[fTaggerPhotonNhits] >= fPhotTimeRL1 && fTaggerPhotonTime[fTaggerPhotonNhits] <= fPhotTimeRR1) {
 
+				fTaggerPhotonHitsNSR[fNRandom++] = chan;
 				fCATSEnergyNoShieldRandom[fNRandom]  = fCATSEnergyNoShield;
 //				fEmissR[fNRandom]  = Emiss;
 				fEmissR[fNRandom]  = Emiss2;
@@ -760,6 +769,8 @@ void TA2CATSPhysics::Reconstruct()
 
 	fCATSEnergyNoShieldPrompt[fNPrompt] = EBufferEnd;
 	fCATSEnergyNoShieldRandom[fNRandom] = EBufferEnd;
+	fTaggerPhotonHitsNSP[fNPrompt] = EBufferEnd;
+	fTaggerPhotonHitsNSR[fNRandom] = EBufferEnd;
 
 	fEmissP[fNPrompt] = EBufferEnd;
 	fEmissR[fNRandom] = EBufferEnd;
