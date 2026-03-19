@@ -3,10 +3,13 @@
 # the "data" directory itself 
 # shall only contain 
 # configuration text files!
-/scratch
+/logfiles
 *.log
 /evgen/
-/simfiles/
+ARout/CB/*
+ARout/CATS/*
+plots/CB/*
+plots/CATS/*
 
-# AcquRoot histogram files
-/histograms
+# Root files
+*.root
