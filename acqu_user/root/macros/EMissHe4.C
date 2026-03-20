@@ -1,4 +1,3 @@
-
 // Tagger Energy
 typedef struct {
 
