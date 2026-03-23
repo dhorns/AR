@@ -8,7 +8,8 @@ enum {
 	ECATSCorePedestals,
 	ECATSCoreGainDrift,
 	ECATSCoreECal,
-	ECATSSmearing,
+	ECATSESmearing,
+	ECATSEShift,
 	EMissingEnergyCut,
 	EProduceTreeFile,
 	ETreeFileName
@@ -20,7 +21,8 @@ static const Map_t kInputs[] = {
 	{"CATS-Core-Pedestals:",			ECATSCorePedestals},
 	{"CATS-Core-GainDrift:",			ECATSCoreGainDrift},
 	{"CATS-Core-Energy-Calibration:",ECATSCoreECal},
-	{"CATS-Smearing-Value:",			ECATSSmearing},
+	{"CATS-E-Smearing:",					ECATSESmearing},
+	{"CATS-E-Shift:",						ECATSEShift},
 	{"Missing-Energy-Cut:",				EMissingEnergyCut},
 	{"Produce-Tree-File:",				EProduceTreeFile},
 	{"Tree-File-Name:",					ETreeFileName},
@@ -146,9 +148,17 @@ void TA2CATSPhysics::SetConfig(Char_t* line, Int_t key)
 				return;
 			}
 		break;
-		case ECATSSmearing:
+		case ECATSESmearing:
 			//  CATS Simulation Energy Smearing
 			if( sscanf( line, "%lf\n", &fESmear) != 1 )
+			{
+				PrintError( line, "<Error: CATS Energy Smearing Value not set correctly>");
+				return;
+			}
+		break;
+		case ECATSEShift:
+			//  CATS Simulation Energy Smearing
+			if( sscanf( line, "%lf\n", &fEShift) != 1 )
 			{
 				PrintError( line, "<Error: CATS Energy Smearing Value not set correctly>");
 				return;
@@ -200,6 +210,15 @@ Double_t TA2CATSPhysics::MCEnergySmear( Double_t unsmearedE)
 	return( Esmeared);
 }
 
+//Define the CATS MC energy smearing function 
+Double_t TA2CATSPhysics::MCEnergyShift( Double_t unshiftedE)
+{
+	Double_t Eshifted;
+	
+	Eshifted = unshiftedE + fEShift;
+
+	return( Eshifted);
+}
 
 //
 // Jakob's functions
@@ -495,7 +514,7 @@ void TA2CATSPhysics::Reconstruct()
 	Double_t adc_averaged, core_energy;
 	Bool_t shield;
 
-	Double_t CoreE, AnnulusE;
+	Double_t CoreE, CoreE_sm, AnnulusE, AnnulusE_sm;
 
 // Do CATS Shield first
 
@@ -550,7 +569,8 @@ void TA2CATSPhysics::Reconstruct()
 			else
 			{
 				CoreE = fCATSCore->GetEnergy( 0);
-				fCATSCoreEnergy = MCEnergySmear( CoreE);
+				CoreE_sm = MCEnergySmear( CoreE);
+				fCATSCoreEnergy = MCEnergyShift( CoreE_sm);
 				if ( fCATSCoreEnergy > 1000) fCATSCoreEnergy = 0;
 			}
 		}
@@ -602,7 +622,8 @@ void TA2CATSPhysics::Reconstruct()
 			else
 			{
 				AnnulusE = fCATSAnnulus->GetEnergy( 0);
-				sum_annulus = MCEnergySmear( AnnulusE);
+				AnnulusE_sm = MCEnergySmear( AnnulusE);
+				sum_annulus = MCEnergyShift( AnnulusE_sm);
 			}
 		}
 		fCATSAnnulusEnergy = sum_annulus;

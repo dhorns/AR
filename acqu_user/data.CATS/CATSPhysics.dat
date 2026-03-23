@@ -27,7 +27,10 @@ CATS-Core-Energy-Calibration: 5.1984228 0.2314023 0.0000046
 #
 #
 # CATS MC Simulation Smearing Value
-CATS-Smearing-Value: 0.10
+CATS-E-Smearing: 0.10
+#
+# CATS MC Simulation Shift Value
+CATS-E-Shift: 5.0
 #
 # Set Missing Energy Cut
 Missing-Energy-Cut: -10 10

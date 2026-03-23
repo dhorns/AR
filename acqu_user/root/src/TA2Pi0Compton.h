@@ -163,8 +163,6 @@ class TA2Pi0Compton : public TA2Physics {
 	Double_t*	fMissingMassRandomPi0;
 	Double_t*	fMissingEnergyPromptPi0;
 	Double_t*	fMissingEnergyRandomPi0;
-//	Double_t*	fMissingEnergyPromptPi0Cut;
-//	Double_t*	fMissingEnergyRandomPi0Cut;
 	Double_t*	fPi0ThetaPrompt;
 	Double_t*	fPi0ThetaRandom;
 	Double_t*	fPi0PhiPrompt;

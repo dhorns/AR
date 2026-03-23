@@ -101,8 +101,9 @@ class TA2CATSPhysics : public TA2Physics {
 
 	Double_t	fPromptRandomRatio;
 
-//	For Smearing the MC Data
+//	For Smearing and Shifting the MC Data
 	Double_t fESmear;
+	Double_t fEShift;
 
 // CATS Calibration Stuff from Jakob
 
@@ -146,6 +147,7 @@ class TA2CATSPhysics : public TA2Physics {
 	TA2CATSPhysics( const char*, TA2Analysis* );
 
 	Double_t MCEnergySmear( Double_t unsmearedE);
+	Double_t MCEnergyShift( Double_t unshiftedE);
 
 	// Jakob's functions	
 	Double_t SubtractPedestal( Int_t channel, Int_t adc_raw);

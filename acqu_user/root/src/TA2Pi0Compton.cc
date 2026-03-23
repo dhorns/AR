@@ -110,8 +110,6 @@ TA2Pi0Compton::TA2Pi0Compton( const char* name, TA2Analysis* analysis )
 	fMissingMassRandomPi0	= NULL;
 	fMissingEnergyPromptPi0	= NULL;
 	fMissingEnergyRandomPi0	= NULL;
-//	fMissingEnergyPromptPi0Cut	= NULL;
-//	fMissingEnergyRandomPi0Cut	= NULL;
 	fPi0ThetaPrompt		= NULL;
 	fPi0ThetaRandom		= NULL;
 	fPi0PhiPrompt		= NULL;
@@ -316,8 +314,6 @@ void TA2Pi0Compton::PostInit()
 	fMissingMassRandomPi0	= new Double_t[352*fMaxNParticle*fMaxNParticle];
 	fMissingEnergyPromptPi0	= new Double_t[352*fMaxNParticle*fMaxNParticle];
 	fMissingEnergyRandomPi0	= new Double_t[352*fMaxNParticle*fMaxNParticle];
-//	fMissingEnergyPromptPi0Cut	= new Double_t[352*fMaxNParticle*fMaxNParticle];
-//	fMissingEnergyRandomPi0Cut	= new Double_t[352*fMaxNParticle*fMaxNParticle];
 	fPi0ThetaPrompt		= new Double_t[352*fMaxNParticle*fMaxNParticle];
 	fPi0ThetaRandom		= new Double_t[352*fMaxNParticle*fMaxNParticle];
 	fPi0PhiPrompt		= new Double_t[352*fMaxNParticle*fMaxNParticle];
@@ -325,84 +321,84 @@ void TA2Pi0Compton::PostInit()
 
 // Create Tree Files, Define Branches (if option is turned on "fProduceTreeFile ==1")
 
-	if(fProduceTreeFile == 1){
+	if(fProduceTreeFile == 1)
+	{
 
-	fFile = new TFile(fTreeFileName, "RECREATE", "Physics", 3);
-	fTree = new TTree("Pi0ComptonTree", "Compton and Pi0 Kinematics");
-	fTree->Branch("NPhotTemp",	&fNPhotTemp, 	"NPhotTemp/I");
-	fTree->Branch("NPhoton",	&fNPhoton, 	"NPhoton/I");
-	fTree->Branch("NProton",	&fNProton, 	"NProton/I");
-	fTree->Branch("NPi0",		&fNPi0, 	"NPi0/I");
-	fTree->Branch("NUnknown",	&fNUnknown, 	"NUnknown/I");
-	fTree->Branch("NPionPhoton",	&fNPionPhoton, 	"NPionPhoton/I");
-	fTree->Branch("CBNParticle",	&fCBNParticle, 	"CBNParticle/I");
+		fFile = new TFile( fTreeFileName, "RECREATE", "Physics", 3);
+		fTree = new TTree( "Pi0ComptonTree", "Compton and Pi0 Kinematics");
+		fTree->Branch( "NPhotTemp",	&fNPhotTemp, 	"NPhotTemp/I");
+		fTree->Branch( "NPhoton",	&fNPhoton, 	"NPhoton/I");
+		fTree->Branch( "NProton",	&fNProton, 	"NProton/I");
+		fTree->Branch( "NPi0",		&fNPi0, 	"NPi0/I");
+		fTree->Branch( "NUnknown",	&fNUnknown, 	"NUnknown/I");
+		fTree->Branch( "NPionPhoton",	&fNPionPhoton, 	"NPionPhoton/I");
+		fTree->Branch( "CBNParticle",	&fCBNParticle, 	"CBNParticle/I");
 
-	fTree->Branch("PhotonEnergy",	fPhotonEnergy,	"PhotonEnergy[NPhoton]/D");
-	fTree->Branch("PhotonTheta",	fPhotonTheta, 	"PhotonTheta[NPhoton]/D");
-	fTree->Branch("PhotonPhi",	fPhotonPhi, 	"PhotonPhi[NPhoton]/D");
-	fTree->Branch("PhotonTime",	fPhotonTime, 	"PhotonTime[NPhoton]/D");
+		fTree->Branch( "PhotonEnergy",	fPhotonEnergy,	"PhotonEnergy[NPhoton]/D");
+		fTree->Branch( "PhotonTheta",	fPhotonTheta, 	"PhotonTheta[NPhoton]/D");
+		fTree->Branch( "PhotonPhi",	fPhotonPhi, 	"PhotonPhi[NPhoton]/D");
+		fTree->Branch( "PhotonTime",	fPhotonTime, 	"PhotonTime[NPhoton]/D");
 
-	fTree->Branch("ProtonEnergy",	fProtonEnergy,	"ProtonEnergy[NProton]/D");
-	fTree->Branch("ProtonTheta",	fProtonTheta, 	"ProtonTheta[NProton]/D");
-	fTree->Branch("ProtonPhi",	fProtonPhi, 	"ProtonPhi[NProton]/D");
-	fTree->Branch("ProtonTime",	fProtonTime, 	"ProtonTime[NProton]/D");
+		fTree->Branch( "ProtonEnergy",	fProtonEnergy,	"ProtonEnergy[NProton]/D");
+		fTree->Branch( "ProtonTheta",	fProtonTheta, 	"ProtonTheta[NProton]/D");
+		fTree->Branch( "ProtonPhi",	fProtonPhi, 	"ProtonPhi[NProton]/D");
+		fTree->Branch( "ProtonTime",	fProtonTime, 	"ProtonTime[NProton]/D");
 
-	fTree->Branch("Pi0Energy",	fPi0Energy,	"Pi0Energy[NPi0]/D");
-	fTree->Branch("Pi0Theta",	fPi0Theta, 	"Pi0Theta[NPi0]/D");
-	fTree->Branch("Pi0Phi",		fPi0Phi, 	"Pi0Phi[NPi0]/D");
-	fTree->Branch("Pi0Time",	fPi0Time, 	"Pi0Time[NPi0]/D");
+		fTree->Branch( "Pi0Energy",	fPi0Energy,	"Pi0Energy[NPi0]/D");
+		fTree->Branch( "Pi0Theta",	fPi0Theta, 	"Pi0Theta[NPi0]/D");
+		fTree->Branch( "Pi0Phi",		fPi0Phi, 	"Pi0Phi[NPi0]/D");
+		fTree->Branch( "Pi0Time",	fPi0Time, 	"Pi0Time[NPi0]/D");
 
-	fTree->Branch("NTagg",		&fNTagg,	"NTagg/I");
-	fTree->Branch("TaggerChannel",	fTaggerChannel,	"TaggerChannel[NTagg]/I");
+		fTree->Branch( "NTagg",		&fNTagg,	"NTagg/I");
+		fTree->Branch( "TaggerChannel",	fTaggerChannel,	"TaggerChannel[NTagg]/I");
 
-	fTree->Branch("NPrompt",	&fNPrompt, 	"NPrompt/I");
-	fTree->Branch("NRandom",	&fNRandom, 	"NRandom/I");
-	fTree->Branch("NTaggNPhot",	&fNTaggNPhot,	"NTaggNPhot/I");
+		fTree->Branch( "NPrompt",	&fNPrompt, 	"NPrompt/I");
+		fTree->Branch( "NRandom",	&fNRandom, 	"NRandom/I");
+		fTree->Branch( "NTaggNPhot",	&fNTaggNPhot,	"NTaggNPhot/I");
 
-	fTree->Branch("NPromptPi0",	&fNPromptPi0, 	"NPromptPi0/I");
-	fTree->Branch("NRandomPi0",	&fNRandomPi0, 	"NRandomPi0/I");
-	fTree->Branch("NTaggNPi0",	&fNTaggNPi0,	"NTaggNPi0/I");
+		fTree->Branch( "NPromptPi0",	&fNPromptPi0, 	"NPromptPi0/I");
+		fTree->Branch( "NRandomPi0",	&fNRandomPi0, 	"NRandomPi0/I");
+		fTree->Branch( "NTaggNPi0",	&fNTaggNPi0,	"NTaggNPi0/I");
 
-	fTree->Branch("TaggerTime",  		fTaggerTime,   		"TaggerTime[NTagg]/D");
-	fTree->Branch("TaggerPhotonTime",  	fTaggerPhotonTime,   	"TaggerPhotonTime[NTaggNPhot]/D");
-	fTree->Branch("TaggerPi0Time",	   	fTaggerPi0Time,      	"TaggerPi0Time[NTaggNPi0]/D");
-	fTree->Branch("TaggerPi0TimeCut",	   	fTaggerPi0TimeCut,      	"TaggerPi0TimeCut[NTaggNPi0]/D");
+		fTree->Branch( "TaggerTime",  		fTaggerTime,   		"TaggerTime[NTagg]/D");
+		fTree->Branch( "TaggerPhotonTime",  	fTaggerPhotonTime,   	"TaggerPhotonTime[NTaggNPhot]/D");
+		fTree->Branch( "TaggerPi0Time",	   	fTaggerPi0Time,      	"TaggerPi0Time[NTaggNPi0]/D");
+		fTree->Branch( "TaggerPi0TimeCut",	   	fTaggerPi0TimeCut,      	"TaggerPi0TimeCut[NTaggNPi0]/D");
 
-	fTree->Branch("N2PhotonInvariantMass", 	&fN2PhotonInvariantMass,"N2PhotonInvariantMass/I");
-	fTree->Branch("2PhotonInvariantMass",  	f2PhotonInvariantMass,  "2PhotonInvariantMass[N2PhotonInvariantMass]/D");
+		fTree->Branch( "N2PhotonInvariantMass", 	&fN2PhotonInvariantMass,"N2PhotonInvariantMass/I");
+		fTree->Branch( "2PhotonInvariantMass",  	f2PhotonInvariantMass,  "2PhotonInvariantMass[N2PhotonInvariantMass]/D");
 
-	fTree->Branch("PromptRandomRatio",	&fPromptRandomRatio,	"PromptRandomRatio/D");
-	fTree->Branch("TaggerChannelPrompt",	fTaggerChannelPrompt,	"TaggerChannelPrompt[NPrompt]/I");
-	fTree->Branch("TaggerChannelRandom",	fTaggerChannelRandom,	"TaggerChannelRandom[NRandom]/I");
-	fTree->Branch("MissingMassPrompt",	fMissingMassPrompt,	"MissingMassPrompt[NPrompt]/D");
-	fTree->Branch("MissingMassRandom",	fMissingMassRandom,	"MissingMassRandom[NRandom]/D");
-	fTree->Branch("MissingEnergyPrompt",	fMissingEnergyPrompt,	"MissingEnergyPrompt[NPrompt]/D");
-	fTree->Branch("MissingEnergyRandom",	fMissingEnergyRandom,	"MissingEnergyRandom[NRandom]/D");
-	fTree->Branch("PhotonThetaPrompt",	fPhotonThetaPrompt, 	"PhotonThetaPrompt[NPrompt]/D");
-	fTree->Branch("PhotonThetaRandom",	fPhotonThetaRandom, 	"PhotonThetaRandom[NRandom]/D");
-	fTree->Branch("PhotonPhiPrompt",	fPhotonPhiPrompt, 	"PhotonPhiPrompt[NPrompt]/D");
-	fTree->Branch("PhotonPhiRandom",	fPhotonPhiRandom, 	"PhotonPhiRandom[NRandom]/D");
+		fTree->Branch( "PromptRandomRatio",	&fPromptRandomRatio,	"PromptRandomRatio/D");
+		fTree->Branch( "TaggerChannelPrompt",	fTaggerChannelPrompt,	"TaggerChannelPrompt[NPrompt]/I");
+		fTree->Branch( "TaggerChannelRandom",	fTaggerChannelRandom,	"TaggerChannelRandom[NRandom]/I");
+		fTree->Branch( "MissingMassPrompt",	fMissingMassPrompt,	"MissingMassPrompt[NPrompt]/D");
+		fTree->Branch( "MissingMassRandom",	fMissingMassRandom,	"MissingMassRandom[NRandom]/D");
+		fTree->Branch( "MissingEnergyPrompt",	fMissingEnergyPrompt,	"MissingEnergyPrompt[NPrompt]/D");
+		fTree->Branch( "MissingEnergyRandom",	fMissingEnergyRandom,	"MissingEnergyRandom[NRandom]/D");
+		fTree->Branch( "PhotonThetaPrompt",	fPhotonThetaPrompt, 	"PhotonThetaPrompt[NPrompt]/D");
+		fTree->Branch( "PhotonThetaRandom",	fPhotonThetaRandom, 	"PhotonThetaRandom[NRandom]/D");
+		fTree->Branch( "PhotonPhiPrompt",	fPhotonPhiPrompt, 	"PhotonPhiPrompt[NPrompt]/D");
+		fTree->Branch( "PhotonPhiRandom",	fPhotonPhiRandom, 	"PhotonPhiRandom[NRandom]/D");
 
-	fTree->Branch("PromptRandomRatioPi0",	&fPromptRandomRatioPi0,	"PromptRandomRatioPi0/D");
-	fTree->Branch("TaggerChannelPromptPi0",	fTaggerChannelPromptPi0,"TaggerChannelPromptPi0[NPromptPi0]/I");
-	fTree->Branch("TaggerChannelRandomPi0",	fTaggerChannelRandomPi0,"TaggerChannelRandomPi0[NRandomPi0]/I");
-	fTree->Branch("MissingMassPromptPi0",	fMissingMassPromptPi0,	"MissingMassPromptPi0[NPromptPi0]/D");
-	fTree->Branch("MissingMassRandomPi0",	fMissingMassRandomPi0,	"MissingMassRandomPi0[NRandomPi0]/D");
-	fTree->Branch("MissingEnergyPromptPi0",	fMissingEnergyPromptPi0,	"MissingEnergyPromptPi0[NPromptPi0]/D");
-	fTree->Branch("MissingEnergyRandomPi0",	fMissingEnergyRandomPi0,	"MissingEnergyRandomPi0[NRandomPi0]/D");
-//	fTree->Branch("MissingEnergyPromptPi0Cut",	fMissingEnergyPromptPi0Cut,	"MissingEnergyPromptPi0Cut[NPromptPi0]/D");
-//	fTree->Branch("MissingEnergyRandomPi0Cut",	fMissingEnergyRandomPi0Cut,	"MissingEnergyRandomPi0Cut[NRandomPi0]/D");
-	fTree->Branch("Pi0ThetaPrompt",		fPi0ThetaPrompt, 	"Pi0ThetaPrompt[NPromptPi0]/D");
-	fTree->Branch("Pi0ThetaRandom",		fPi0ThetaRandom, 	"Pi0ThetaRandom[NRandomPi0]/D");
-	fTree->Branch("Pi0PhiPrompt",		fPi0PhiPrompt, 		"Pi0PhiPrompt[NPromptPi0]/D");
-	fTree->Branch("Pi0PhiRandom",		fPi0PhiRandom, 		"Pi0PhiRandom[NRandomPi0]/D");
+		fTree->Branch( "PromptRandomRatioPi0",	&fPromptRandomRatioPi0,	"PromptRandomRatioPi0/D");
+		fTree->Branch( "TaggerChannelPromptPi0",	fTaggerChannelPromptPi0,"TaggerChannelPromptPi0[NPromptPi0]/I");
+		fTree->Branch( "TaggerChannelRandomPi0",	fTaggerChannelRandomPi0,"TaggerChannelRandomPi0[NRandomPi0]/I");
+		fTree->Branch( "MissingMassPromptPi0",	fMissingMassPromptPi0,	"MissingMassPromptPi0[NPromptPi0]/D");
+		fTree->Branch( "MissingMassRandomPi0",	fMissingMassRandomPi0,	"MissingMassRandomPi0[NRandomPi0]/D");
+		fTree->Branch( "MissingEnergyPromptPi0",	fMissingEnergyPromptPi0,	"MissingEnergyPromptPi0[NPromptPi0]/D");
+		fTree->Branch( "MissingEnergyRandomPi0",	fMissingEnergyRandomPi0,	"MissingEnergyRandomPi0[NRandomPi0]/D");
+		fTree->Branch( "Pi0ThetaPrompt",		fPi0ThetaPrompt, 	"Pi0ThetaPrompt[NPromptPi0]/D");
+		fTree->Branch( "Pi0ThetaRandom",		fPi0ThetaRandom, 	"Pi0ThetaRandom[NRandomPi0]/D");
+		fTree->Branch( "Pi0PhiPrompt",		fPi0PhiPrompt, 		"Pi0PhiPrompt[NPromptPi0]/D");
+		fTree->Branch( "Pi0PhiRandom",		fPi0PhiRandom, 		"Pi0PhiRandom[NRandomPi0]/D");
 
-        fTree->Branch("CBESum",  		&fCBESum,		"CBESum/D");
-        fTree->Branch("NaINCluster",            &fNaINCluster,          "NaINCluster/I");
-        fTree->Branch("BaF2NCluster",           &fBaF2NCluster,         "BaF2NCluster/I");
+	   fTree->Branch( "CBESum",  		&fCBESum,		"CBESum/D");
+	   fTree->Branch( "NaINCluster",            &fNaINCluster,          "NaINCluster/I");
+	   fTree->Branch( "BaF2NCluster",           &fBaF2NCluster,         "BaF2NCluster/I");
 
-	gROOT->cd();
+		gROOT->cd();
 	}
+
 	// Default physics initialisation
 	TA2Physics::PostInit();
 }
@@ -466,8 +462,6 @@ void TA2Pi0Compton::LoadVariable( )
 	TA2DataManager::LoadVariable("MissingMassRandomPi0",	fMissingMassRandomPi0,		EDMultiX);
 	TA2DataManager::LoadVariable("MissingEnergyPromptPi0",	fMissingEnergyPromptPi0,		EDMultiX);
 	TA2DataManager::LoadVariable("MissingEnergyRandomPi0",	fMissingEnergyRandomPi0,		EDMultiX);
-//	TA2DataManager::LoadVariable("MissingEnergyPromptPi0Cut",	fMissingEnergyPromptPi0Cut,		EDMultiX);
-//	TA2DataManager::LoadVariable("MissingEnergyRandomPi0Cut",	fMissingEnergyRandomPi0Cut,		EDMultiX);
 	TA2DataManager::LoadVariable("Pi0ThetaPrompt",		fPi0ThetaPrompt, 		EDMultiX);
 	TA2DataManager::LoadVariable("Pi0ThetaRandom",		fPi0ThetaRandom, 		EDMultiX);
 	TA2DataManager::LoadVariable("Pi0PhiPrompt",		fPi0PhiPrompt, 			EDMultiX);
@@ -705,17 +699,6 @@ void TA2Pi0Compton::Reconstruct()
 			p4incident = fP4target[0] + taggerphoton.GetP4();
 			p4missing  = p4incident   - pi0.GetP4();
 
-//			Double_t eBeamPhot;
-//			eBeamPhot = taggerphoton.GetE();
-//			if ( ( eBeamPhot >= 310) && ( eBeamPhot <= 330))
-//			{
-//				fTaggerPi0TimeCut[fNTaggNPi0] = fTaggerPi0Time[fNTaggNPi0];
-//			}
-//			else
-//			{
-//				fTaggerPi0TimeCut[fNTaggNPi0] = -1000;
-//			}
-
 			if ( (fTaggerPi0Time[fNTaggNPi0] >= fPi0TimePL && fTaggerPi0Time[fNTaggNPi0] <= fPi0TimePR) ||
 			  	(gAR->GetProcessType() == EMCProcess) )
 			{
@@ -723,15 +706,9 @@ void TA2Pi0Compton::Reconstruct()
 				fTaggerChannelPromptPi0[fNPromptPi0] 	= fTaggerChannel[j];
 				fMissingMassPromptPi0[fNPromptPi0]   	= p4missing.M();
 				fMissingEnergyPromptPi0[fNPromptPi0]	= p4missing.M()-fP4target[0].M();
-				fPi0ThetaPrompt[fNPromptPi0]		= fPi0Theta[i];
-				fPi0PhiPrompt[fNPromptPi0]		= fPi0Phi[i];
+				fPi0ThetaPrompt[fNPromptPi0]				= fPi0Theta[i];
+				fPi0PhiPrompt[fNPromptPi0]					= fPi0Phi[i];
 				fNPromptPi0++;
-
-//				if ( ( eBeamPhot >= 310) && ( eBeamPhot <= 330))
-//				{
-//					fMissingEnergyPromptPi0Cut[fNPromptPi0Cut]	= p4missing.M()-fP4target[0].M();
-//					fNPromptPi0Cut++;
-//				}
 			}
 
 			if ( (fTaggerPi0Time[fNTaggNPi0] >= fPi0TimeRL1 && fTaggerPi0Time[fNTaggNPi0] <= fPi0TimeRR1) ||
@@ -740,16 +717,9 @@ void TA2Pi0Compton::Reconstruct()
 				fTaggerChannelRandomPi0[fNRandomPi0] 	= fTaggerChannel[j];
 				fMissingMassRandomPi0[fNRandomPi0]   	= p4missing.M();
 				fMissingEnergyRandomPi0[fNRandomPi0]	= p4missing.M()-fP4target[0].M();
-				fPi0ThetaRandom[fNRandomPi0]		= fPi0Theta[i];
-				fPi0PhiRandom[fNRandomPi0]		= fPi0Phi[i];
+				fPi0ThetaRandom[fNRandomPi0]				= fPi0Theta[i];
+				fPi0PhiRandom[fNRandomPi0]					= fPi0Phi[i];
 				fNRandomPi0++;
-
-//				if ( ( eBeamPhot >= 310) && ( eBeamPhot <= 330))
-//				{
-//					fMissingEnergyRandomPi0Cut[fNRandomPi0Cut]	= p4missing.M()-fP4target[0].M();
-//					fNRandomPi0Cut++;
-//				}
-
 			}
 
 			fNTaggNPi0++;
@@ -844,8 +814,6 @@ void TA2Pi0Compton::Reconstruct()
 	fTaggerChannelRandomPi0[fNRandomPi0]	= EBufferEnd;
 	fMissingEnergyPromptPi0[fNPromptPi0]	= EBufferEnd;
 	fMissingEnergyRandomPi0[fNRandomPi0]	= EBufferEnd;
-//	fMissingEnergyPromptPi0Cut[fNPromptPi0Cut]	= EBufferEnd;
-//	fMissingEnergyRandomPi0Cut[fNRandomPi0Cut]	= EBufferEnd;
 	fMissingMassPromptPi0[fNPromptPi0]	= EBufferEnd;
 	fMissingMassRandomPi0[fNRandomPi0]	= EBufferEnd;
 	fPi0ThetaPrompt[fNPromptPi0]		= EBufferEnd;
