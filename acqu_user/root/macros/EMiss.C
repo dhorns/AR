@@ -1,5 +1,5 @@
-TFile cats_data( "scratch/ARH_all.root");
-//TFile cats_data( "scratch/ARH_Day6.root");
+TFile cats_data( "ARout/CATS/ARH_all.root");
+
 TH1D *EM_P = (TH1D*)cats_data.Get( "PHYS_EmissP");
 TH1D *EM_R = (TH1D*)cats_data.Get( "PHYS_EmissR");
 

@@ -631,6 +631,11 @@ void TA2CATSPhysics::Reconstruct()
 
 	fCATSEnergy = fCATSCoreEnergy + fCATSAnnulusEnergy;
 
+//	std::cout << fCATSCoreEnergy;
+//	std::cout << "  " << fCATSAnnulusEnergy;
+//	std::cout << "  " << fCATSEnergy;
+//	std::cout << std::endl;
+
 	if ( shield == kFALSE) fCATSEnergyNoShield = fCATSEnergy;
 
 	// 4-mom stuff
@@ -734,6 +739,11 @@ void TA2CATSPhysics::Reconstruct()
 			Emiss = p4missing.M() - fP4target[0].M();
 			Emiss2 = ComptonScattering( eBeamPhot) - p4CATS.E();
 
+//			std::cout << "  This  " << ComptonScattering( eBeamPhot);
+//			std::cout << "  " << p4CATS.E();
+//			std::cout << "  " << Emiss2;
+//			std::cout << std::endl;
+
 			fCATSTaggerTime[fTaggerPhotonNhits] = fTaggerPhotonTime[fTaggerPhotonNhits] - fCATSTime;
 
 			// Prompt Hits
@@ -760,7 +770,7 @@ void TA2CATSPhysics::Reconstruct()
 			// Random Hits
 			if (fTaggerPhotonTime[fTaggerPhotonNhits] >= fPhotTimeRL1 && fTaggerPhotonTime[fTaggerPhotonNhits] <= fPhotTimeRR1) {
 
-				fTaggerPhotonHitsNSR[fNRandom++] = chan;
+				fTaggerPhotonHitsNSR[fNRandom] = chan;
 				fCATSEnergyNoShieldRandom[fNRandom]  = fCATSEnergyNoShield;
 //				fEmissR[fNRandom]  = Emiss;
 				fEmissR[fNRandom]  = Emiss2;

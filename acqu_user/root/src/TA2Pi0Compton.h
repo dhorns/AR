@@ -167,6 +167,8 @@ class TA2Pi0Compton : public TA2Physics {
 	Double_t*	fPi0ThetaRandom;
 	Double_t*	fPi0PhiPrompt;
 	Double_t*	fPi0PhiRandom;
+	Double_t*	fPi0InvMPrompt;
+	Double_t*	fPi0InvMRandom;
 
 	Double_t	fCBESum;
 	Int_t		fNaINCluster;

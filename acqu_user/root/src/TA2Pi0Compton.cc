@@ -114,6 +114,8 @@ TA2Pi0Compton::TA2Pi0Compton( const char* name, TA2Analysis* analysis )
 	fPi0ThetaRandom		= NULL;
 	fPi0PhiPrompt		= NULL;
 	fPi0PhiRandom		= NULL;
+	fPi0InvMPrompt		= NULL;
+	fPi0InvMRandom		= NULL;
 
 	// Trigger Variables
 	fCBESum			= 0.0;
@@ -318,6 +320,8 @@ void TA2Pi0Compton::PostInit()
 	fPi0ThetaRandom		= new Double_t[352*fMaxNParticle*fMaxNParticle];
 	fPi0PhiPrompt		= new Double_t[352*fMaxNParticle*fMaxNParticle];
 	fPi0PhiRandom		= new Double_t[352*fMaxNParticle*fMaxNParticle];
+	fPi0InvMPrompt		= new Double_t[352*fMaxNParticle*fMaxNParticle];
+	fPi0InvMRandom		= new Double_t[352*fMaxNParticle*fMaxNParticle];
 
 // Create Tree Files, Define Branches (if option is turned on "fProduceTreeFile ==1")
 
@@ -391,6 +395,8 @@ void TA2Pi0Compton::PostInit()
 		fTree->Branch( "Pi0ThetaRandom",		fPi0ThetaRandom, 	"Pi0ThetaRandom[NRandomPi0]/D");
 		fTree->Branch( "Pi0PhiPrompt",		fPi0PhiPrompt, 		"Pi0PhiPrompt[NPromptPi0]/D");
 		fTree->Branch( "Pi0PhiRandom",		fPi0PhiRandom, 		"Pi0PhiRandom[NRandomPi0]/D");
+		fTree->Branch( "Pi0InvMPrompt",		fPi0InvMPrompt, 	"Pi0InvMPrompt[NPromptPi0]/D");
+		fTree->Branch( "Pi0InvMRandom",		fPi0InvMRandom, 	"Pi0InvMRandom[NRandomPi0]/D");
 
 	   fTree->Branch( "CBESum",  		&fCBESum,		"CBESum/D");
 	   fTree->Branch( "NaINCluster",            &fNaINCluster,          "NaINCluster/I");
@@ -466,6 +472,8 @@ void TA2Pi0Compton::LoadVariable( )
 	TA2DataManager::LoadVariable("Pi0ThetaRandom",		fPi0ThetaRandom, 		EDMultiX);
 	TA2DataManager::LoadVariable("Pi0PhiPrompt",		fPi0PhiPrompt, 			EDMultiX);
 	TA2DataManager::LoadVariable("Pi0PhiRandom",		fPi0PhiRandom, 			EDMultiX);
+	TA2DataManager::LoadVariable("Pi0InvMPrompt",		fPi0InvMPrompt, 		EDMultiX);
+	TA2DataManager::LoadVariable("Pi0InvMRandom",		fPi0InvMRandom, 		EDMultiX);
 
 	TA2DataManager::LoadVariable("CBESum",			&fCBESum,			EDSingleX);
 	TA2DataManager::LoadVariable("NaINCluster",		&fNaINCluster,			EISingleX);
@@ -694,10 +702,11 @@ void TA2Pi0Compton::Reconstruct()
 			fTaggerPi0Time[fNTaggNPi0] 	= taggerphoton.GetTime() - fPi0Time[i];
 			TA2Particle pi0   	 	= *fPi0[i];
 
-			TLorentzVector p4incident , p4missing, p4;
- 			p4	   = pi0.GetP4();
+			TLorentzVector p4incident , p4missing, pi0p4;
+
+			pi0p4 = pi0.GetP4();
 			p4incident = fP4target[0] + taggerphoton.GetP4();
-			p4missing  = p4incident   - pi0.GetP4();
+			p4missing  = p4incident   - pi0p4;
 
 			if ( (fTaggerPi0Time[fNTaggNPi0] >= fPi0TimePL && fTaggerPi0Time[fNTaggNPi0] <= fPi0TimePR) ||
 			  	(gAR->GetProcessType() == EMCProcess) )
@@ -708,6 +717,7 @@ void TA2Pi0Compton::Reconstruct()
 				fMissingEnergyPromptPi0[fNPromptPi0]	= p4missing.M()-fP4target[0].M();
 				fPi0ThetaPrompt[fNPromptPi0]				= fPi0Theta[i];
 				fPi0PhiPrompt[fNPromptPi0]					= fPi0Phi[i];
+				fPi0InvMPrompt[fNPromptPi0]				= pi0p4.M();
 				fNPromptPi0++;
 			}
 
@@ -719,6 +729,7 @@ void TA2Pi0Compton::Reconstruct()
 				fMissingEnergyRandomPi0[fNRandomPi0]	= p4missing.M()-fP4target[0].M();
 				fPi0ThetaRandom[fNRandomPi0]				= fPi0Theta[i];
 				fPi0PhiRandom[fNRandomPi0]					= fPi0Phi[i];
+				fPi0InvMRandom[fNRandomPi0]				= pi0p4.M();
 				fNRandomPi0++;
 			}
 
@@ -820,6 +831,8 @@ void TA2Pi0Compton::Reconstruct()
 	fPi0ThetaRandom[fNRandomPi0]		= EBufferEnd;
 	fPi0PhiPrompt[fNPromptPi0]		= EBufferEnd;
 	fPi0PhiRandom[fNRandomPi0]		= EBufferEnd;
+	fPi0InvMPrompt[fNPromptPi0]		= EBufferEnd;
+	fPi0InvMRandom[fNRandomPi0]		= EBufferEnd;
 
 // Fill Tree File
 

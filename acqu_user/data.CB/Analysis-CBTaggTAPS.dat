@@ -54,8 +54,8 @@ Apparatus:	CB	      	TA2CentralApparatus     Apparatus-CentApp.dat
 Reconstruct-Analysis:
 #
 ## Specify physics analysis
-Physics-Analysis:   PHYS      TA2GoAT		       Physics-GoAT.dat
-#Physics-Analysis:   PHYS      TA2Pi0Compton	       Physics-Pi0Compton.dat
+#Physics-Analysis:   PHYS      TA2GoAT		       Physics-GoAT.dat
+Physics-Analysis:   PHYS      TA2Pi0Compton	       Physics-Pi0Compton.dat
 ##
 ##
 ## Do some post initialisation...usually necessary
@@ -64,7 +64,8 @@ Initialise:
 ## Macros
 Period:  10000	root/macros/PeriodMacro.C	PeriodMacro()
 #EndFile:	EndFileMacro.C  EndFileMacro()
-Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/GoAT")
+Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/ARH")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/GoAT")
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/MC_He4")
 ##
 ########################################################################
@@ -223,6 +224,8 @@ Display: Scaler 3164 3227
 Display: SumScaler 3164 3227
 Display: Scaler 3228 3292
 Display: SumScaler 3228 3292
+Display: Scaler 2000 3000
+Display: SumScaler 2000 3000
 ##
 ########################################################################
 ## Display Rates

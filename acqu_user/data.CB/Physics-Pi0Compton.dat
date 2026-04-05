@@ -92,6 +92,8 @@ Display: 1D Pi0ThetaPrompt		180	0	180
 Display: 1D Pi0ThetaRandom		180	0	180
 Display: 1D Pi0PhiPrompt		360	-180	180
 Display: 1D Pi0PhiRandom		360	-180	180
+Display: 1D Pi0InvMPrompt		200	0	200
+Display: 1D Pi0InvMRandom		200	0	200
 #
 Display: 2D MissingEnergyPromptPi0 200 -100 100 -1 TaggerChannelPromptPi0 352 0 352 -1
 Display: 2D MissingEnergyRandomPi0 200 -100 100 -1 TaggerChannelRandomPi0 352 0 352 -1
