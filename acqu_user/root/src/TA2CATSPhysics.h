@@ -139,8 +139,8 @@ class TA2CATSPhysics : public TA2Physics {
 	Double_t* fEmissCutR;
 	Double_t* fCATSTaggerTime;
 
-	Int_t* fTaggerPhotonHitsNSP;
-	Int_t* fTaggerPhotonHitsNSR;
+	Int_t* fTaggerChannelCATSP;
+	Int_t* fTaggerChannelCATSR;
 
 	public:
 

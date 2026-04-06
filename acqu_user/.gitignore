@@ -6,10 +6,6 @@
 /logfiles
 *.log
 /evgen/
-ARout/CB/*
-ARout/CATS/*
-plots/CB/*
-plots/CATS/*
 
 # Root files
 *.root

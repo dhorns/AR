@@ -1,136 +1,144 @@
+// Tagger Energy
+typedef struct {
+
+	Int_t egamma;
+	Double_t energy;
+	Double_t denergy;
+
+} TData;
+
+TData tdata[328];
+
+// Data Histogram File
 TFile cats_data( "ARout/CATS/ARH_all.root");
 
-TH1D *EM_P = (TH1D*)cats_data.Get( "PHYS_EmissP");
-TH1D *EM_R = (TH1D*)cats_data.Get( "PHYS_EmissR");
+// Tagger Time for Random Subtraction
+TH1D *tt = (TH1D*)cats_data.Get( "PHYS_TaggerTime");
 
-TH1D *EMC_P = (TH1D*)cats_data.Get( "PHYS_EmissCutP");
-TH1D *EMC_R = (TH1D*)cats_data.Get( "PHYS_EmissCutR");
+// 2D Tagger Channel vs. Missing Energy
+TH2D *hP = (TH2D*)cats_data.Get( "PHYS_TaggerChannelCATSP_v_EmissP");
+TH2D *hR = (TH2D*)cats_data.Get( "PHYS_TaggerChannelCATSR_v_EmissR");
 
-TH1D *tagtime = (TH1D*)cats_data.Get( "PHYS_TaggerTime");
-TH1D *ttcut = (TH1D*)cats_data.Get( "PHYS_TaggerTimeCut");
-
-TH2D *EM2D_P = (TH2D*)cats_data.Get( "PHYS_EmissP_v_TaggerEnergy");
-TH2D *EM2D_R = (TH2D*)cats_data.Get( "PHYS_EmissR_v_TaggerEnergy");
-
+// Prompt-Accidental Subtraction Ratio
+// From the fit below
 //const Double_t rPR = -0.0375;
 //const Double_t rPR = -0.3;
+//const Double_t rPR = -0.01347;
+const Double_t rPR = 0.0458;
 
-// This is from the fit below
-const Double_t rPR = -0.01347;
+TH2D *hS2;
 
-void EMiss( UInt_t rebin = 1)
+void ReadTagEng883()
 {
+	UInt_t i;
+	Double_t eff, deff;
+	TString file = "includes/tageng883.dat";
 
-	TString name;
-
-	TCanvas *c1 = new TCanvas ( "c1", "EMiss", 20, 350, 500, 700);
-	c1->Divide( 1, 2);
-
-	c1->cd( 1);
-	EM_P->Draw();
-
-	c1->cd( 2);
-	EM_R->Draw();
-
-	TH1D *EM_S = new TH1D( "EM_S", "Subtracted", 200, -100, 100);
-
-	EM_S->Sumw2();
-	EM_S->Add( EM_P, EM_R, 1, rPR);
-
-	TCanvas *c2 = new TCanvas ( "c2", "EMissS", 300, 400, 500, 500);
-	EM_S->Draw();
-
-	c1->Print( "plots/EMiss.pdf");
-
+	ifstream inFile( file);
+	while( !inFile.eof()) {
+		inFile >> i >> eff >> deff;
+		tdata[i].energy = deff;
+		tdata[i].egamma = (int)(deff + 0.5);
+	}
+	inFile.close();
 }
 
-void EMissCut( UInt_t rebin = 1)
-{
-
-	TString name;
-
-	TCanvas *c1 = new TCanvas ( "c1", "EMissCut", 20, 350, 500, 700);
-	c1->Divide( 1, 2);
-
-	c1->cd( 1);
-	EMC_P->Draw();
-
-	c1->cd( 2);
-	EMC_R->Draw();
-
-	TH1D *EMC_S = new TH1D( "EMC_S", "Subtracted", 200, -100, 100);
-
-	EMC_S->Sumw2();
-	EMC_S->Add( EMC_P, EMC_R, 1, rPR);
-
-	TCanvas *c2 = new TCanvas ( "c2", "EMissCutS", 300, 400, 500, 500);
-	EMC_S->Draw();
-	EMC_S->GetXaxis()->SetRangeUser( -20, 20);
-
-	c2->Print( "plots/EMissCut.pdf");
-
-}
 void EMiss2D( UInt_t rebin = 1)
 {
 
 	TString name;
 
-	TCanvas *c1 = new TCanvas ( "c1", "EMiss2D", 20, 350, 500, 500);
+	gROOT->ProcessLine( "ReadTagEng883()");
 
-	TH2D *EM2D_S = new TH2D( "EM2D_S", "Subtracted", 900, 0, 900, 200, -100, 100);
+	TCanvas *c1 = new TCanvas ( "c1", "EMiss", 20, 350, 1000, 500);
+	c1->Divide( 3, 1);
 
-	EM2D_S->Sumw2();
-	EM2D_S->Add( EM2D_P, EM2D_R, 1, rPR);
-	EM2D_S->GetXaxis()->SetRangeUser( 290, 330);
-//	EM2D_S->Draw();
+	c1->cd( 1);
+	hP->SetTitle( "Prompt");
+	hP->Draw();
 
-	TH1D *proj = new TH1D( "proj", "Projection", 200, -100, 100);
-	proj = EM2D_S->ProjectionY( "Em");
+	c1->cd( 2);
+	hR->SetTitle( "Random");
+	hR->Draw();
+
+	c1->cd( 3);
+	TH2D *hS = (TH2D*)hP->Clone( "subt");
+	hS->SetTitle( "Subtracted");
+	hS->Sumw2();
+	hS->Add( hR, -rPR);
+	hS->Draw();
+
+	hS2 = (TH2D*)hS->Clone( "binned");
+	hS2->SetTitle( "Binned");
+
+	c1->Print( "plots/CATS/EMiss2D.pdf");
+
+}
+
+// Projects Missing Mass from tagger channel 'lo' to tagger channel 'hi'
+void ProjEMiss( UInt_t lo, UInt_t hi)
+{
+	UInt_t eg_l, eg_h;
+	TString name;
+
+	eg_l = tdata[lo].egamma;
+	eg_h = tdata[hi].egamma;
+
+	TCanvas *c1 = new TCanvas ( "c1", "EMiss", 20, 350, 700, 500);
+
+	hS2->GetYaxis()->SetRange( lo, hi);
+	TH1D *proj = hS2->ProjectionX( "projX");
 	proj->Draw();
+	proj->SetTitle( "Missing Energy");
 
-//	c1->Print( "plots/EMiss.pdf");
+	TPaveText *pt = new TPaveText( 0.2, 0.4, 0.8, 0.9, "NDC");
+	pt->SetBorderSize( 0);
+	pt->SetFillStyle( 0);
+	pt->SetTextAlign( 12);
+	pt->SetTextSize( 0.05);
+	name = Form( "E_{#gamma} = %d - %d MeV\n", eg_l, eg_h);
+	pt->AddText( name);
+	pt->Draw();
+
+	name = Form( "plots/CATS/EMiss_%d-%d_MeV.pdf", eg_l, eg_h);
+	c1->Print( name);
 
 }
 
 void TaggerTime( UInt_t rebin = 1)
 {
 
-	Double_t par[2];
-	Double_t x[2], y[2];
+	Double_t par[3];
+	Double_t x[2], y[2], z[2];
 	Double_t AR, AP, ratio;
 	Double_t w, l;
 	TString name;
 
 	TCanvas *c1 = new TCanvas ( "c1", "Tagger Time", 20, 350, 500, 500);
-//	tagtime->GetXaxis()->SetRangeUser( -300, 100);
-//	tagtime->Draw();
-	ttcut->GetXaxis()->SetRangeUser( -300, 500);
-	ttcut->SetMinimum( 0);
-	ttcut->Draw();
+	tt->GetXaxis()->SetRangeUser( -500, 500);
+	tt->SetMinimum( 0);
+	tt->Draw();
 
-	TF1 *f1 = new TF1( "f1", "pol1", -50, 350);
-	ttcut->Fit( "f1", "R");
+	TF1 *f1 = new TF1( "f1", "pol2", -50, 300);
+	tt->Fit( "f1", "R");
 	f1->GetParameters( &par[0]);
+	f1->SetLineColor( 4);
+	f1->SetLineWidth( 4);
+	f1->Draw( "same");
+
+	TF1 *f2 = new TF1("f", "[0]*x + 0.5*[1]*x*x + 0.3333*[2]*x*x*x", -1000, 1000);
+	f2->SetParameters( par[0], par[1], par[2]);
 
 	x[0] = -115;
-	x[1] = -110;
+	x[1] = -100;
 
-	w = x[1] - x[0];
-	y[0] = par[0] + x[0]*par[1];
-	y[1] = par[0] + x[1]*par[1];
-	l = (y[0]+y[1])/2;
-	AP = w*l;
-
+	AP = f2->Eval( x[1]) - f2->Eval( x[0]);
 	cout << " AP = " << AP;
 
 	x[0] = -50;
 	x[1] = 350;
 
-	w = x[1] - x[0];
-	y[0] = par[0] + x[0]*par[1];
-	y[1] = par[0] + x[1]*par[1];
-	l = (y[0]+y[1])/2;
-	AR = w*l;
+	AR = f2->Eval( x[1]) - f2->Eval( x[0]);
 
 	cout << "  AR = " << AR;
 
@@ -139,6 +147,6 @@ void TaggerTime( UInt_t rebin = 1)
 	cout << "  ratio = " << ratio;
 	cout << endl;
 
-	c1->Print( "plots/TaggerTime.pdf");
+//	c1->Print( "plots/TaggerTimeCut.pdf");
 
 }

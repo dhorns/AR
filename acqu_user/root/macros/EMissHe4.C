@@ -42,7 +42,6 @@ void ReadTagEng883()
 void EMissHe4()
 {
 
-	Double_t par[3];
 	TString name;
 
 	gROOT->ProcessLine( "ReadTagEng883()");
@@ -71,6 +70,7 @@ void EMissHe4()
 	c1->Print( "plots/EMissHe4.pdf");
 
 }
+
 void ProjEMiss( UInt_t chan)
 {
 	UInt_t eg;

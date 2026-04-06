@@ -107,11 +107,13 @@ Display: 1D CATSTaggerTime				1000 -500 500
 #
 Display: 2D	TaggerEnergy 900 0 900 -1 TaggerHits 328 0 328 -1
 #
-Display: 2D	TaggerEnergy 900 0 900 -1 EmissP 200 -100 100 -1
-Display: 2D	TaggerEnergy 900 0 900 -1 EmissR 200 -100 100 -1
+#Display: 2D	TaggerEnergy 900 0 900 -1 EmissP 200 -100 100 -1
+#Display: 2D	TaggerEnergy 900 0 900 -1 EmissR 200 -100 100 -1
+Display: 2D	EmissP 200 -100 100 -1 TaggerChannelCATSP 328 0 328 -1
+Display: 2D	EmissR 200 -100 100 -1 TaggerChannelCATSR 328 0 328 -1
 #
-Display: 2D CATSEnergyNoShieldPrompt 1000 0 1000 -1 TaggerHitsNSP 328 0 328 -1
-Display: 2D CATSEnergyNoShieldRandom 1000 0 1000 -1 TaggerHitsNSR 328 0 328 -1
+#Display: 2D CATSEnergyNoShieldPrompt 1000 0 1000 -1 TaggerHitsNSP 328 0 328 -1
+#Display: 2D CATSEnergyNoShieldRandom 1000 0 1000 -1 TaggerHitsNSR 328 0 328 -1
 #
-Display: 1D TaggerHitsNSP		328 0 328
-Display: 1D TaggerHitsNSR		328 0 328
+Display: 1D TaggerChannelCATSP		328 0 328
+Display: 1D TaggerChannelCATSR		328 0 328
