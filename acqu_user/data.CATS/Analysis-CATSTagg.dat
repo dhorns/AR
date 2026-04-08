@@ -53,8 +53,8 @@ Period:	100000	root/macros/PeriodMacro.C PeriodMacro()
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day4")
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day5")
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day6")
-Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_all")
-#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_InBeam")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_all")
+Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_InBeam")
 #
 # MC
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/MC_InBeam")
