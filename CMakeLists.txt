@@ -1,5 +1,5 @@
-cmake_minimum_required (VERSION 3.20)
-project(acqu)
+cmake_minimum_required(VERSION 3.20)
+project(acqu LANGUAGES CXX)
 
 # check for in-source build, forbid it!
 if(CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR AND NOT MSVC_IDE)

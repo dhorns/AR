@@ -225,7 +225,7 @@ void TA2CylMwpc::DeleteArrays()
   //Geometrical corrections
   delete [] fPhiCorrEI[0];
   delete [] fPhiCorrEI[1];
-  delete [] fPhiCorrEI[3];
+  delete [] fPhiCorrEI[2];
   delete [] fPhiCorr;
   delete [] fXcorr;
   delete [] fYcorr;
@@ -1076,8 +1076,10 @@ void TA2CylMwpc::IntersectLayers(Int_t iCh)
     if (fUsedClW[iCh][iClW]) continue; // if used wire cluster => continue
     Int_t iIE  = iterDPhi->second.second;
     Int_t iClI = fIclI[iCh][iIE];
+	 if (iClI == kNullHit) continue;
     if (fUsedClI[iCh][iClI]) continue; // if used internal strip cluster => continue
     Int_t iClE = fIclE[iCh][iIE];
+	 if (iClE == kNullHit) continue;
     if (fUsedClE[iCh][iClE]) continue; // if used external strip cluster => continue
     //
     Double_t phiW  = fW[iCh]->GetCGClust(iClW);
@@ -1131,8 +1133,10 @@ void TA2CylMwpc::IntersectLayers(Int_t iCh)
   {
     if (TooManyInters(iCh)) break;
     Int_t iClI = fIclI[iCh][iIE];
+	 if (iClI == kNullHit) continue;
     if (fUsedClI[iCh][iClI]) continue;
     Int_t iClE = fIclE[iCh][iIE];
+	 if (iClE == kNullHit) continue;
     if (fUsedClE[iCh][iClE]) continue;
     ampl = (fI[iCh]->GetClustEn(iClI) + fE[iCh]->GetClustEn(iClE))/2.;
     AddIntersection(iCh, TA2MwpcIntersection::kEI, iClI, kNullHit, iClE, fZie[iCh][iIE], fPhiIE[iCh][iIE], ENullFloat, ampl);
@@ -1307,6 +1311,11 @@ void TA2CylMwpc::Test(Bool_t WantDisplay)
     cout << "nClI: " << fI[iCh]->GetNClust() << "\t nClE: " << fE[iCh]->GetNClust() << "\t nIE: " << fNie[iCh] << endl;
     for (Int_t i=0; i<fNie[iCh]; ++i)
     {
+		 Int_t iClI = fIclI[iCh][i];
+		 Int_t iClE = fIclE[iCh][i];
+
+		 if ( iClI == kNullHit ||  iClE == kNullHit) continue;
+
       cout << i << "\tphiIE: " << fPhiIE[iCh][i]*kRadToDeg << "\tzIE: " << fZie[iCh][i] << "\tiClI: "<< fIclI[iCh][i] << "\tCGI: " << fI[iCh]->GetCGClust(fIclI[iCh][i]) << "\tiClE: " << fIclE[iCh][i] << "\tCGE: " << fE[iCh]->GetCGClust(fIclE[iCh][i]) << endl;
     }
     // W clusters

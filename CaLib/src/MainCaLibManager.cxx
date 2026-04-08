@@ -225,24 +225,55 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         if (strlen(tmp_str) > colLength[0]) colLength[0] = strlen(tmp_str);
 
         // path
-        tmp = c.GetRun(i)->GetPath();
-        if (strlen(tmp) > colLength[1]) colLength[1] = strlen(tmp);
+        const Char_t* path = c.GetRun(i)->GetPath();
+		  if (!path) path = "";
+		  if (path != nullptr)
+		  {
+			  size_t len = std::strlen(path);
+			  if (len > colLength[1])
+				  colLength[1] = len;
+		  }
+//        if (strlen(tmp) > colLength[1]) colLength[1] = strlen(tmp);
     
         // file name
         tmp = c.GetRun(i)->GetFileName();
-        if (strlen(tmp) > colLength[2]) colLength[2] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[2])
+				  colLength[2] = len;
+		  }
+//        if (strlen(tmp) > colLength[2]) colLength[2] = strlen(tmp);
         
         // time
         tmp = c.GetRun(i)->GetTime();
-        if (strlen(tmp) > colLength[3]) colLength[3] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[3])
+				  colLength[3] = len;
+		  }
+//        if (strlen(tmp) > colLength[3]) colLength[3] = strlen(tmp);
         
         // description
         tmp = c.GetRun(i)->GetDescription();
-        if (strlen(tmp) > colLength[4]) colLength[4] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[4])
+				  colLength[4] = len;
+		  }
+//        if (strlen(tmp) > colLength[4]) colLength[4] = strlen(tmp);
         
         // run note
         tmp = c.GetRun(i)->GetRunNote();
-        if (strlen(tmp) > colLength[5]) colLength[5] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[5])
+				  colLength[5] = len;
+		  }
+//        if (strlen(tmp) > colLength[5]) colLength[5] = strlen(tmp);
  
         // size
         sprintf(tmp_str, "%lld", c.GetRun(i)->GetSize());
@@ -250,11 +281,23 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
 
         // target
         tmp = c.GetRun(i)->GetTarget();
-        if (strlen(tmp) > colLength[7]) colLength[7] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[7])
+				  colLength[7] = len;
+		  }
+//        if (strlen(tmp) > colLength[7]) colLength[7] = strlen(tmp);
         
         // target polarization
         tmp = c.GetRun(i)->GetTargetPol();
-        if (strlen(tmp) > colLength[8]) colLength[8] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[8])
+				  colLength[8] = len;
+		  }
+//        if (strlen(tmp) > colLength[8]) colLength[8] = strlen(tmp);
         
         // target polarization degree
         sprintf(tmp_str, "%f", c.GetRun(i)->GetTargetPolDeg());
@@ -262,7 +305,13 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         
         // beam polarization
         tmp = c.GetRun(i)->GetBeamPol();
-        if (strlen(tmp) > colLength[10]) colLength[10] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[10])
+				  colLength[10] = len;
+		  }
+//        if (strlen(tmp) > colLength[10]) colLength[10] = strlen(tmp);
  
         // beam polarization degree
         sprintf(tmp_str, "%f", c.GetRun(i)->GetBeamPolDeg());
@@ -388,11 +437,23 @@ WINDOW* FormatCalibTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHea
 
         // change time
         tmp = c.GetCalibration(i)->GetChangeTime();
-        if (strlen(tmp) > colLength[3]) colLength[3] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[3])
+				  colLength[3] = len;
+		  }
+//        if (strlen(tmp) > colLength[3]) colLength[3] = strlen(tmp);
         
         // description
         tmp = c.GetCalibration(i)->GetDescription();
-        if (strlen(tmp) > colLength[4]) colLength[4] = strlen(tmp);
+		  if (tmp != nullptr)
+		  {
+			  size_t len = strlen(tmp);
+			  if (len > colLength[4])
+				  colLength[4] = len;
+		  }
+//        if (strlen(tmp) > colLength[4]) colLength[4] = strlen(tmp);
     
         // parameters
         Double_t* par = c.GetCalibration(i)->GetParameters();

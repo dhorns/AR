@@ -326,7 +326,12 @@ const char* TCFileManager::get_real_path(const char* path)
 
 	// if the above doesn't work, let's give realpath() a try to do it
 	// it should resolve the path (~, symlinks, ...), but often doesn't work as expected...
-	realpath(path, _path);
+	char* result = realpath(path, _path);
+	if (!result) {
+			perror("realpath failed");
+			return nullptr;
+	}
+	return result;
 	// get the dirname in case a file is appended or a tilde in some strange cases
 	const char* new_path = dirname(_path);
 

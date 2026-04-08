@@ -29,7 +29,7 @@ class TA2MwpcIntersection : public TObject {
     Double_t	fDphiWIE;	// dPhi between wire and internal-external strip clusters intersection
     Double_t	fAclIE;		// Average strip cluster pulse amplitudes associated with the intersection
   public:
-    TA2MwpcIntersection() : fPosition(TVector3(0,0,0)), fIclI(ENullHit), fIclW(ENullHit), fIclE(ENullHit), fType(k0), fDphiWIE(ENullFloat), fAclIE(ENullFloat) {}
+    TA2MwpcIntersection() : fPosition(TVector3(0,0,0)), fIclI(-1), fIclW(-1), fIclE(-1), fType(k0), fDphiWIE(ENullFloat), fAclIE(ENullFloat) {}
     virtual ~TA2MwpcIntersection() {}
     void Set(const Double_t&, const Double_t&, const Double_t&, const Int_t, const Int_t, const Int_t, const EType, const Double_t, const Double_t);
     const TVector3 *GetPosition() const { return &fPosition; }

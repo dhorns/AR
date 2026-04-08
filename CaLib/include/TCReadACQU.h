@@ -20,6 +20,7 @@
 #include "TError.h"
 #include "TSystem.h"
 #include "TSystemDirectory.h"
+#include <vector>
 
 
 // Mk1 format header field sizes
@@ -91,7 +92,11 @@ private:
         if (f)
         {
             // read 6 bytes
-            if(fread(header, 1, 6, f));
+		  	size_t n = fread(header, 1, 6, f);
+			if (n != 6) {
+			    perror("fread failed");
+			    return kFileBad;  // or throw, depending on design
+			}
             
             // close the file
             fclose(f);
@@ -184,8 +189,15 @@ public:
         Int_t maxHdrLength = kMk2Marker + kMk2SizeTime + kMk2SizeDesc + 
                              kMk2SizeRNote + kMk2SizeFName +
                              sizeof(UShort_t);
-        Char_t header[maxHdrLength];
-        if(fread(header, 1, sizeof(header), file));
+		  std::vector<Char_t> header(maxHdrLength);
+
+		  size_t n = fread(header.data(), 1, header.size(), file);
+			if (n != header.size()) {
+			    // handle error
+			    // e.g.:
+			    perror("fread failed");
+			    return;  // or throw, depending on design
+			}
         
         // close file
         if (ftype == kFileUnComp) fclose(file);
@@ -193,7 +205,7 @@ public:
         else if (ftype == kFileXZ) pclose(file);
         
         // identify raw file format
-        fFormat = CheckFileFormat(header);
+        fFormat = CheckFileFormat(header.data());
         
         // parse header
         if (fFormat == kRawMk1 || fFormat == kRawMk2)
@@ -206,7 +218,7 @@ public:
             Int_t sFName = fFormat == kRawMk1 ? (Int_t)kMk1SizeFName : (Int_t)kMk2SizeFName;
             
             // start parsing
-            Char_t* pos = header;
+		  		Char_t* pos = header.data();
 
             // skip header
             pos += sMarker;

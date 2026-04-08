@@ -1,36 +1,40 @@
 # this is a hard requirement...will be sorted out later
-#set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
-
-# make more warnings appear
-add_definitions(-D_FORTIFY_SOURCE=2)
+# set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
 
 # every subdirectory has its own bin/lib path
 # this should be changed to one "global" directory...
 if(NOT DEFINED EXECUTABLE_OUTPUT_PATH)
-	set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+  set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin" CACHE PATH "Executable output path")
 endif()
 
 if(NOT DEFINED LIBRARY_OUTPUT_PATH)
-	set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
+  set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib" CACHE PATH "Library output path")
 endif()
 
-# really no optimization in debug mode
-if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall")
+# set default build type if unspecified so far
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(STATUS "No build type selected, default to Release")
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
+endif()
+
+# compiler checks and flags
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  # really no optimization in debug mode
+  string(APPEND CMAKE_CXX_FLAGS_DEBUG " -O0 -Wall")
+
+  # fortify only makes sense with optimization enabled
+  string(APPEND CMAKE_CXX_FLAGS_RELEASE " -D_FORTIFY_SOURCE=2")
+  string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO " -D_FORTIFY_SOURCE=2")
+  string(APPEND CMAKE_CXX_FLAGS_MINSIZEREL " -D_FORTIFY_SOURCE=2")
 else()
   message(FATAL_ERROR "Non-gcc compiler not supported")
 endif()
 
-# set default build type if unspecified so far
-if(NOT CMAKE_BUILD_TYPE)
-  message(STATUS "No build type selected, default to Release")
-  set(CMAKE_BUILD_TYPE "Release")
-endif()
-
 # figure out compile flags
-string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
-set(DEFAULT_COMPILE_FLAGS ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
-
+string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_TYPE)
+set(DEFAULT_COMPILE_FLAGS "${CMAKE_CXX_FLAGS_${BUILD_TYPE}}")
 
 # disable the DAQ build mode by default
 # unless the site_name aka hostname begins with "vme-"

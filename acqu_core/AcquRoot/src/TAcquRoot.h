@@ -549,7 +549,7 @@ inline void TAcquRoot::GetErrorModule( Int_t* errormod )
     rerror = fHardwareError + i;    // error block in data
     errormod[i] = rerror->fModIndex;
   }
-  errormod[i] = ENullHit;
+  errormod[i] = -1;
   return;
 }
 

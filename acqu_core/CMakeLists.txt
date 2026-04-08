@@ -73,6 +73,10 @@ endif()
 target_link_libraries(libAcquRoot a2display)
 
 CompileCoreLib(AcquDAQ "-O0") # AcquDAQ must not be optimized (hardware access gets scrambled)
+
+target_compile_options(libAcquDAQ PRIVATE -U_FORTIFY_SOURCE)
+#target_compile_definitions(libAcquDAQ PRIVATE _FORTIFY_SOURCE=0)
+
 CompileCoreLib(AcquMC)
 
 # EPICS/libezca is only included in DAQ mode and if EPICS is found

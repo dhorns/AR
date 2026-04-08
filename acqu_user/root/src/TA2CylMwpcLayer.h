@@ -2,6 +2,7 @@
 #define __TA2CylMwpcLayer_h__
 
 #include "TA2WCLayer.h"
+#include <vector>
 
 #define MARKED 32767
 
@@ -53,7 +54,8 @@ inline void TA2CylMwpcLayer::DecodeCluster( Int_t& nHit, Int_t** phit )
 
   //----------------------------------------------------------------------------
   //This is Sven's rewritten cluster algorithm for strips/wires
-  Int_t Temp[nh+nh];
+//  Int_t Temp[nh+nh];
+  std::vector<Int_t> Temp(2*nh);
   Int_t Cnt;
   Int_t Clr;
   //Copy hits to a 2nd field for marking connected elements

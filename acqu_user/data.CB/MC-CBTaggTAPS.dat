@@ -61,7 +61,7 @@ Branch:   emwpc         1024
 #
 #TreeFile: scratch/geant.root
 #TreeFile: A2G4/compton_c_300_out.root
-TreeFile: A2G4/pi0_he4_220_out.root
+TreeFile: A2G4/pi0_he4_300_out.root
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
