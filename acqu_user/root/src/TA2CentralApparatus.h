@@ -351,11 +351,11 @@ inline void TA2CentralApparatus::MarkEndBuffers()
   // EndBuffers
   
   // ParticleInfo
-  fType[fNparticle] = EBufferEnd;
+  fType[fNparticle] = -1;
   fTime[fNparticle] = EBufferEnd;
-  fSize[fNparticle] = EBufferEnd;
-  fCentral[fNparticle] = EBufferEnd;
-  fDet[fNparticle] = EBufferEnd;
+  fSize[fNparticle] = -1;
+  fCentral[fNparticle] = -1;
+  fDet[fNparticle] = -1;
   
   //
   fTrackType[fNtracks] = EBufferEnd;

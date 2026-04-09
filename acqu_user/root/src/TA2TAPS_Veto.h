@@ -111,7 +111,7 @@ inline void TA2TAPS_Veto::Do0Rings()
     k++;
   }
 
-  fHits[k] = EBufferEnd;
+  fHits[k] = -1;
   fEnergyOR[k] = EBufferEnd;
   fTimeOR[k] = EBufferEnd;
   fTotalEnergy = total;
@@ -226,7 +226,7 @@ inline void TA2TAPS_Veto::Do1Rings()
     }
   }
 
-  fHits[k] = EBufferEnd;
+  fHits[k] = -1;
   fEnergyOR[k] = EBufferEnd;
   fTimeOR[k] = EBufferEnd;
   fTotalEnergy = total;
@@ -341,7 +341,7 @@ inline void TA2TAPS_Veto::Do2Rings()
     }
   }
 
-  fHits[k] = EBufferEnd;
+  fHits[k] = -1;
   fEnergyOR[k] = EBufferEnd;
   fTimeOR[k] = EBufferEnd;
   fTotalEnergy = total;

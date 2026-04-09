@@ -75,8 +75,8 @@ inline void TA2CylMwpcStrip::CGClusters()
   }
   
   //
-  fClust[fNClust] = EBufferEnd;
-  fLenClust[fNClust] = EBufferEnd;
+  fClust[fNClust] = -1;
+  fLenClust[fNClust] = -1;
   fCGClust[fNClust] = EBufferEnd;
   fClustEn[fNClust] = EBufferEnd;
 }

@@ -94,7 +94,7 @@ inline void TA2WCLayer::DecodeCluster( Int_t& nHit, Int_t** phit )
     if( hit[nh] >= fIend ) break;;
     fLayerHits[nh] = hit[nh] - fIstart;
   }
-  fLayerHits[nh] = EBufferEnd;  // mark end of local hits buffer
+  fLayerHits[nh] = -1;  // mark end of local hits buffer
   fNHits = nh;                  // store local # hits
 
   if(nh==0) return;
@@ -158,8 +158,8 @@ inline void TA2WCLayer::CGClusters()
   // For multi-value variables add end-marker to storage buffer
   Int_t i;
   for( i=0; i<fNClust; i++ )CGCluster( i );
-  fClust[i] = EBufferEnd;
-  fLenClust[i] = EBufferEnd;
+  fClust[i] = -1;
+  fLenClust[i] = -1;
   fCGClust[i] = EBufferEnd;
 }
 

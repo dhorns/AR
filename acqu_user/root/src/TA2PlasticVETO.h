@@ -88,7 +88,7 @@ inline void TA2PlasticVETO::ReadDecoded( )
     k++;
   }
 
-  fHits[k] = EBufferEnd;
+  fHits[k] = -1;
   fEnergyOR[k] = EBufferEnd;
   fNhits = k;
   if(fIsTime)fTimeOR[k] = EBufferEnd;

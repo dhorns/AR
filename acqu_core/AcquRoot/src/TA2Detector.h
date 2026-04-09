@@ -277,19 +277,19 @@ inline void TA2Detector::DecodeBasic( )
     }
     fNhits++;
   }
-  fHits[fNhits] = EBufferEnd;
+  fHits[fNhits] = -1;
   if( fIsTime ){
     fTimeOR[fNhits] = EBufferEnd;
     fTimeAll[fNhitsAll] = EBufferEnd;
-    if( fIsRawHits ) fRawTimeHits[fNTDChits] = EBufferEnd;
+    if( fIsRawHits ) fRawTimeHits[fNTDChits] = -1;
     for(UInt_t m=0; m<fNMultihit; m++){
-      fHitsM[m][fNhitsM[m]] = EBufferEnd;
+      fHitsM[m][fNhitsM[m]] = -1;
       fTimeORM[m][fNhitsM[m]] = EBufferEnd;
     }
   }
   if( fIsEnergy ){
     fEnergyOR[fNhits] = EBufferEnd;
-    if( fIsRawHits ) fRawEnergyHits[fNADChits] = EBufferEnd;
+    if( fIsRawHits ) fRawEnergyHits[fNADChits] = -1;
   }
 }
 

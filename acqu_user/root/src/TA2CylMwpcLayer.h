@@ -37,7 +37,7 @@ inline void TA2CylMwpcLayer::DecodeCluster( Int_t& nHit, Int_t** phit )
     if(hit[nh] >= fIend) break;;
     fLayerHits[nh] = hit[nh] - fIstart;
   }
-  fLayerHits[nh] = EBufferEnd;  // mark end of local hits buffer
+  fLayerHits[nh] = -1;  // mark end of local hits buffer
   fNHits = nh;                  // store local # hits
 
   if(nh==0) return;

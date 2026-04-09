@@ -185,7 +185,7 @@ inline void TA2Ladder::Cleanup( )
       fDiffTime[j] = (Double_t)ENullHit;
     }
   }
-  if( fMuHits ) fMuHits[0] = EBufferEnd;
+  if( fMuHits ) fMuHits[0] = -1;
 }
 
 //---------------------------------------------------------------------------
@@ -249,7 +249,7 @@ inline void TA2Ladder::DecodeDoubles( )
       i = ik;
     }
     fNhits = ngood;
-    fHits[ngood] = EBufferEnd;
+    fHits[ngood] = -1;
     fTimeOR[ngood] = EBufferEnd;
     if( fIsEnergy ) fEnergyOR[ngood] = fEnergy[j];
     fDoubles[fNDoubles] = EBufferEnd;
@@ -291,7 +291,7 @@ inline void TA2Ladder::DecodeMicro( )
     fMuHits[fNMuHits] = l;
     fNMuHits++;
   }
-  fMuHits[fNMuHits] = EBufferEnd;    // end markers in buffers
+  fMuHits[fNMuHits] = -1;    // end markers in buffers
 }
 
 //---------------------------------------------------------------------------
@@ -322,8 +322,8 @@ inline void TA2Ladder::DecodePrRand( )
       }
     }
     fWindows[fNhits]=EBufferEnd;
-    fHitsPrompt[fNhitsPrompt] = EBufferEnd;
-    fHitsRand[fNhitsRand] = EBufferEnd;
+    fHitsPrompt[fNhitsPrompt] = -1;
+    fHitsRand[fNhitsRand] = -1;
   }
 }
 

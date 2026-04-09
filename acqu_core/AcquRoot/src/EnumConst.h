@@ -39,15 +39,12 @@ enum{ EHeadBuff = 0x10101010,      // header buffer (experimental parameters
       EHeadPhysBuff = 0x60606060,  // reserved
       EMk2DataBuff = 0x70707070,   // Mk2 data buffer
       EEndEvent = 0xFFFFFFFF,      // end of event marker
-//      EBufferEnd = 0xFFFFFFFF,     // end of file marker
-      EBufferEnd = -1,     // end of file marker
+      EBufferEnd = 0xFFFFFFFF,     // end of file marker
       EScalerBuffer = 0xFEFEFEFE,  // start of scaler read out
       EEPICSBuffer = 0xFDFDFDFD,   // start of EPICS read out
       EReadError = 0xEFEFEFEF,     // start of error block (hardware error)
       ENullADC = -1,               // undefined ADC value
       ENullHit = 0xFFFFFFFF,       // undefined hit index (end of hit buffer)
-//      ENullHit = -1,       // undefined hit index (end of hit buffer)
-//      ENullStore = 0x8000,         // for multi-hit ADC handling
       ENullStore = -32768,         // for multi-hit ADC handling
       ENullFloat = -999999999      // optional null indicator
 };

@@ -315,9 +315,9 @@ inline void TA2TAPS_BaF2::ReadDecoded()
 
   // Clear arrays / set them to EBufferEnd
   if (fMaxSGElements)
-    memset(fSGEnergyValue, EBufferEnd, fMaxSGElements*sizeof(Double_t));
+    memset(fSGEnergyValue, -1, fMaxSGElements*sizeof(Double_t));
   if (fPatternHits)
-    memset(fPatternHits[0], EBufferEnd, fNelem*sizeof(Int_t));
+    memset(fPatternHits[0], -1, fNelem*sizeof(Int_t));
   memset(EnergyAll, 0., fNelem*sizeof(Double_t));
 
   // Finally evaluate all simulated hits
@@ -410,7 +410,7 @@ inline void TA2TAPS_BaF2::ReadDecoded()
 
   }
 
-  fHits[nBaF2s] = EBufferEnd;
+  fHits[nBaF2s] = -1;
   fTimeOR[nBaF2s] = EBufferEnd;
   fEnergyOR[nBaF2s] = EBufferEnd;
   fNhits = nBaF2s;
@@ -418,7 +418,7 @@ inline void TA2TAPS_BaF2::ReadDecoded()
 
   if (fPatternHits)
   {
-    fPatternHits[0][nVetos] = EBufferEnd;
+    fPatternHits[0][nVetos] = -1;
     fNPatternHits[0] = nVetos;
     // Note, that this may conflict with other ReadDecoded() functions later on, as this destroys the venergy[]
     // information! So, the bit pattern veto should not be used if another veto implementation is running!
@@ -427,8 +427,8 @@ inline void TA2TAPS_BaF2::ReadDecoded()
 
   if (fIsRawHits)
   {
-    fRawEnergyHits[0] = EBufferEnd;
-    fRawTimeHits[0] = EBufferEnd;
+    fRawEnergyHits[0] = -1;
+    fRawTimeHits[0] = -1;
   }
 
   bSimul = true;

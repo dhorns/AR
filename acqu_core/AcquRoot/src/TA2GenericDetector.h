@@ -195,7 +195,7 @@ inline void TA2GenericDetector::ReadDecoded( )
     k++;
   }
   fNhits = k;
-  fHits[k] = EBufferEnd;
+  fHits[k] = -1;
   fEnergyOR[k] = EBufferEnd;
   fTimeOR[k] = EBufferEnd;
   if(fXMCOR) fXMCOR[k] = fYMCOR[k] = fZMCOR[k] = EBufferEnd;

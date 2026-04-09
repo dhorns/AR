@@ -139,7 +139,7 @@ inline void TA2LongScint::DecodeBar()
     }
   }
   // mark end of variable length arrays
-  fBarHits[fNBarHits] = EBufferEnd;
+  fBarHits[fNBarHits] = -1;
   fMeanEnergyOR[fNBarHits] = EBufferEnd;
   fMeanTimeOR[fNBarHits] = EBufferEnd;
   fTimeDiffOR[fNBarHits] = EBufferEnd;
@@ -169,7 +169,7 @@ inline void TA2LongScint::ReadDecoded( )
   }
   for( UInt_t i=0; i<fNSmearHits; i++ ) fHits[i] = fSmearHits[i];
   fNhits = fNSmearHits;
-  fHits[fNhits] = EBufferEnd;
+  fHits[fNhits] = -1;
   if( fNbar )DecodeBar();
 }
 

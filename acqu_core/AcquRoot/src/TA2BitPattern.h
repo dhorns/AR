@@ -103,7 +103,7 @@ inline void TA2BitPattern::Decode( )
 	if( !datum ) break;                 // no set bits left
       }
     }
-    hits[nhits] = EBufferEnd;               // hits buffer end marker
+    hits[nhits] = -1;               // hits buffer end marker
     fNHits[n] = nhits;
   }
 }

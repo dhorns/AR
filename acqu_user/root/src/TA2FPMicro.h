@@ -62,7 +62,7 @@ inline void TA2FPMicro::Decode( )
     fFPhits[fNFPhits] = l;
     fNFPhits++;
   }
-  fFPhits[fNFPhits] = EBufferEnd;    // end markers in buffers
+  fFPhits[fNFPhits] = -1;    // end markers in buffers
 }
 
 //---------------------------------------------------------------------------
@@ -71,6 +71,6 @@ inline void TA2FPMicro::Cleanup( )
   // end-of-event cleanup
   TA2Detector::Cleanup();
   // "zero" hits buffer
-  fFPhits[0] = EBufferEnd;
+  fFPhits[0] = -1;
 }
 #endif

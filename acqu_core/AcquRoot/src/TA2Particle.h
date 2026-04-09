@@ -176,10 +176,10 @@ class TA2Particle : public TObject
     return (fP4.Vect().Angle(pVect) * TMath::RadToDeg()); }
   Double_t GetAngleDg(TVector3* pVect){
     return (fP4.Vect().Angle(*pVect) * TMath::RadToDeg()); }
-  Int_t GetVetoIndex(){ if((fDetectors & EDetVeto)||(fDetectors & EDetPID)) return fVetoIndex; else return EBufferEnd; }
+  Int_t GetVetoIndex(){ if((fDetectors & EDetVeto)||(fDetectors & EDetPID)) return fVetoIndex; else return -1; }
   Int_t GetCentralIndex(){ if((fDetectors & EDetBaF2)||(fDetectors & EDetNaI)||(fDetectors & EDetPbWO4)||(fDetectors & EDetLadder)
                             ||(fDetectors & EDetMicro)||(fDetectors & EDetEndpoint)||(fDetectors & EDetTOFBar))return fCentralIndex;
-    else return EBufferEnd; }
+    else return -1; }
   Int_t GetLinState(){ if((fApparati & EAppTagger)) return fLinState;
     else return ELinNone; }
   Int_t GetCircState(){ if((fApparati & EAppTagger)) return fCircState;

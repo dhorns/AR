@@ -217,14 +217,14 @@ inline void TA2CalArray::ReadDecoded()
   fTotalEnergy = total;
 
   // terminate arrays
-  fHits[fNhits] = EBufferEnd;
+  fHits[fNhits] = -1;
   fEnergyOR[fNhits] = EBufferEnd;
   if (fIsTime) fTimeOR[fNhits] = EBufferEnd;
 
   if(fIsRawHits)
   {
-    fRawEnergyHits[0] = EBufferEnd;
-    fRawTimeHits[0] = EBufferEnd;
+    fRawEnergyHits[0] = -1;
+    fRawTimeHits[0] = -1;
   }
 }
 
