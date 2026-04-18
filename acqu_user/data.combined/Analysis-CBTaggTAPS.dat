@@ -65,8 +65,8 @@ Initialise:
 Period:  10000	root/macros/PeriodMacro.C	PeriodMacro()
 #EndFile:	EndFileMacro.C  EndFileMacro()
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/GoAT")
-#Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/ARH_He4")
-Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/MC_He4_300MeV")
+Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/ARH_He4")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/MC_He4_300MeV")
 ##
 ########################################################################
 ## Display Histograms
@@ -94,7 +94,7 @@ Finish:	root/macros/Finish.C	FinishBasic("ARout/CB/MC_He4_300MeV")
 ########################################################################
 ##
 ## PID - ADCs
-Display: ADC 100 131
+#Display: ADC 100 131
 ##
 ## PID - TDCs
 #Display: MultiHit 2001 2031 1000 -5000 -2000 0
@@ -112,8 +112,8 @@ Display: ADC 100 131
 #Display: MultiHit 5000 5351 2000 -1000 1000 2
 ##
 ## Cherenkov - TDCs
-Display: MultiHit 2001 2007 1000 -7000 3000 0
-Display: 2D 125  100 0 4000 2001M0 100 -4000 -1000
+#Display: MultiHit 2001 2007 1000 -7000 3000 0
+#Display: 2D 125  100 0 4000 2001M0 100 -4000 -1000
 ##
 ########################################################################
 ##

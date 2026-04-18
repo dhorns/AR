@@ -5,6 +5,7 @@ typedef struct {
 	Int_t egamma;
 	Double_t energy;
 	Double_t denergy;
+	Int_t scaler;
 
 } TData;
 
@@ -27,17 +28,20 @@ const Double_t rPR = 0.0636;
 TH2D *hS2;
 TH1D* proj_global = nullptr;//Added by Gen
 
-void ReadTagEng883()
+void ReadTagEng( Int_t eg)
 {
-	UInt_t i;
+	UInt_t i, sc;
 	Double_t eff, deff;
-	TString file = "includes/tageng883.dat";
+	TString file;
+
+	file = Form( "includes/tageng%d.dat", eg);
 
 	ifstream inFile( file);
 	while( !inFile.eof()) {
-		inFile >> i >> eff >> deff;
+		inFile >> i >> eff >> deff >> sc;
 		tdata[i].energy = deff;
 		tdata[i].egamma = (int)(deff + 0.5);
+		tdata[i].scaler = sc;
 	}
 	inFile.close();
 }
@@ -49,7 +53,7 @@ void CATSEnergy()
 	Double_t par[3];
 	TString name;
 
-	gROOT->ProcessLine( "ReadTagEng883()");
+	gROOT->ProcessLine( "ReadTagEng(855)");
 
 	TCanvas *c1 = new TCanvas ( "c1", "EMissCATS", 200, 350, 1200, 500);
 	c1->Divide( 3, 1);
@@ -81,6 +85,8 @@ void ProjCATSE( UInt_t chan)
 	TString name;
 
 	eg = tdata[chan].egamma;
+	
+	cout << "Scaler for Channel " << chan << " is " << tdata[chan].scaler << endl;
 
 	TCanvas *c1 = new TCanvas ( "c1", "CATSEnergy", 20, 350, 700, 500);
 

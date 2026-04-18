@@ -4,16 +4,21 @@ typedef struct {
 	Int_t egamma;
 	Double_t energy;
 	Double_t denergy;
+	Int_t scaler;
 
 } TData;
 
 TData tdata[328];
 
 // Data Histogram File
-TFile cats_data( "ARout/CATS/ARH_all.root");
+TFile cats_data( "ARout/CATS/ARH_AllDays.root");
 
 // Tagger Time for Random Subtraction
 TH1D *tt = (TH1D*)cats_data.Get( "PHYS_TaggerTime");
+
+// Tagger Sum Scalers
+TH1D *ts = (TH1D*)cats_data.Get( "SumScalers2000to3000");
+TH1D *ss = new TH1D( "TaggerScalers", "TaggerScalers", 328, 0, 327);
 
 // 2D Tagger Channel vs. Missing Energy
 TH2D *hP = (TH2D*)cats_data.Get( "PHYS_TaggerChannelCATSP_v_EmissP");
@@ -28,27 +33,31 @@ const Double_t rPR = 0.0458;
 
 TH2D *hS2;
 
-void ReadTagEng883()
+void ReadTagEng( Int_t eg)
 {
-	UInt_t i;
+	UInt_t i, sc;
 	Double_t eff, deff;
-	TString file = "includes/tageng883.dat";
+	TString file;
+
+	file = Form( "includes/tageng%d.dat", eg);
 
 	ifstream inFile( file);
 	while( !inFile.eof()) {
-		inFile >> i >> eff >> deff;
+		inFile >> i >> eff >> deff >> sc;
 		tdata[i].energy = deff;
 		tdata[i].egamma = (int)(deff + 0.5);
+		tdata[i].scaler = sc;
 	}
 	inFile.close();
 }
+
 
 void EMiss2D( UInt_t rebin = 1)
 {
 
 	TString name;
 
-	gROOT->ProcessLine( "ReadTagEng883()");
+	gROOT->ProcessLine( "ReadTagEng(855)");
 
 	TCanvas *c1 = new TCanvas ( "c1", "EMiss", 20, 350, 1000, 500);
 	c1->Divide( 3, 1);
@@ -148,5 +157,30 @@ void TaggerTime( UInt_t rebin = 1)
 	cout << endl;
 
 //	c1->Print( "plots/TaggerTimeCut.pdf");
+
+}
+
+void TaggerScalers()
+{
+	UInt_t i, s_chan;
+	Double_t scal;
+
+	gROOT->ProcessLine( "ReadTagEng(855)");
+
+	for ( i = 0; i < 328; i++)
+	{
+		s_chan = tdata[i].scaler;
+		scal = ts->GetBinContent( s_chan-1999);
+		ss->SetBinContent( i, scal);
+
+//		cout << i;
+//		cout << " " << s_chan;
+//		cout << " " << scal;
+//		cout << endl;
+
+	}
+
+	TCanvas *c1 = new TCanvas ( "c1", "Scalers", 20, 350, 700, 500);
+	ss->Draw();
 
 }

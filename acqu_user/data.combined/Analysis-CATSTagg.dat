@@ -76,6 +76,9 @@ Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_AllDays")
 #Display: ADC 29000 29191
 #Display: ADC 29192 29192
 #
+Display: Scaler 2000 3000
+Display: SumScaler 2000 3000
+#
 Display: ADC 29048 29059
 Display: MultiHit 29240 29251 12000 -10000  2000 0
 Display: ADC 27000 27015
