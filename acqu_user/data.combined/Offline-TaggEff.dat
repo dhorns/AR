@@ -17,7 +17,7 @@ Branch:	  Mk1_Header            120000
 ## List of Tree files which will form the input TChain for --offline running
 ##
 ## Directory to save any created ROOT files (include final / )
-Directory: ARout/CB/
+Directory: ARout/TE/
 ##
 ## Manual setup of ADC, Scaler, bits-in-ADC numbers
 ## Usually needed only where experiment header information is not given

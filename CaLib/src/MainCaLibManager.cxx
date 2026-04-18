@@ -229,7 +229,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
 		  if (!path) path = "";
 		  if (path != nullptr)
 		  {
-			  size_t len = std::strlen(path);
+			  size_t len = std::char_traits<char>::length(path);
 			  if (len > colLength[1])
 				  colLength[1] = len;
 		  }
@@ -239,7 +239,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         tmp = c.GetRun(i)->GetFileName();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[2])
 				  colLength[2] = len;
 		  }
@@ -249,7 +249,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         tmp = c.GetRun(i)->GetTime();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[3])
 				  colLength[3] = len;
 		  }
@@ -259,7 +259,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         tmp = c.GetRun(i)->GetDescription();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[4])
 				  colLength[4] = len;
 		  }
@@ -269,7 +269,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         tmp = c.GetRun(i)->GetRunNote();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[5])
 				  colLength[5] = len;
 		  }
@@ -283,7 +283,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         tmp = c.GetRun(i)->GetTarget();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[7])
 				  colLength[7] = len;
 		  }
@@ -293,7 +293,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         tmp = c.GetRun(i)->GetTargetPol();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[8])
 				  colLength[8] = len;
 		  }
@@ -307,7 +307,7 @@ WINDOW* FormatRunTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHeade
         tmp = c.GetRun(i)->GetBeamPol();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[10])
 				  colLength[10] = len;
 		  }
@@ -439,7 +439,7 @@ WINDOW* FormatCalibTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHea
         tmp = c.GetCalibration(i)->GetChangeTime();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[3])
 				  colLength[3] = len;
 		  }
@@ -449,7 +449,7 @@ WINDOW* FormatCalibTable(TCContainer& c, Int_t* outColLengthTot, WINDOW** outHea
         tmp = c.GetCalibration(i)->GetDescription();
 		  if (tmp != nullptr)
 		  {
-			  size_t len = strlen(tmp);
+			  size_t len = std::char_traits<char>::length(tmp);
 			  if (len > colLength[4])
 				  colLength[4] = len;
 		  }
