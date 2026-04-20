@@ -70,14 +70,33 @@ function(ROOT_PREPARE_LIB SOURCEDIRS INCDIRS LINKDEFDIR DICTNAME
   
   # find the one and only LinkDef  
   # globbing makes it an absolute path!
-  if(${LINKDEFDIR} MATCHES "LinkDef\\.h$")
+#  if(${LINKDEFDIR} MATCHES "LinkDef\\.h$")
+#    # provided linkdefdir is already path to linkdef
+#    file(GLOB LINKDEF "${LINKDEFDIR}")
+#    # set dir correctly
+#    get_filename_component(LINKDEFDIR ${LINKDEF} PATH)
+#  else()
+#    # autosearch for LinkDef, useful if name is somewhat different...
+#    file(GLOB LINKDEF "${LINKDEFDIR}/*LinkDef.h")
+#  endif()
+  if("${LINKDEFDIR}" MATCHES "LinkDef\\.h$")
     # provided linkdefdir is already path to linkdef
-    file(GLOB LINKDEF "${LINKDEFDIR}")
-    # set dir correctly
-    get_filename_component(LINKDEFDIR ${LINKDEF} PATH)
+    get_filename_component(LINKDEF "${LINKDEFDIR}" ABSOLUTE)
+    get_filename_component(LINKDEFDIR "${LINKDEF}" DIRECTORY)
   else()
     # autosearch for LinkDef, useful if name is somewhat different...
-    file(GLOB LINKDEF "${LINKDEFDIR}/*LinkDef.h")
+    file(GLOB LINKDEF_LIST "${LINKDEFDIR}/*LinkDef.h")
+  
+    list(LENGTH LINKDEF_LIST N_LINKDEF)
+  
+    if(N_LINKDEF EQUAL 1)
+      list(GET LINKDEF_LIST 0 LINKDEF)
+      get_filename_component(LINKDEF "${LINKDEF}" ABSOLUTE)
+    elseif(N_LINKDEF EQUAL 0)
+      message(FATAL_ERROR "No LinkDef.h found in ${LINKDEFDIR}")
+    else()
+      message(FATAL_ERROR "Multiple LinkDef.h files found in ${LINKDEFDIR}: ${LINKDEF_LIST}")
+    endif()
   endif()
 
   # and returns nothing if not found, check that!
