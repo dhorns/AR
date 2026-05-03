@@ -20,7 +20,10 @@ MultiADC:       8       1168    1183    1166
 ## PWO and veto inner ring
 ##     	   	#hits	start	stop	reference
 ## MultiADC:       3       29193   29319   29192 ## original values in this file
+#
+## Just shut this off!  DLH 26.05.03
 MultiADC:	   3	   29224   29317   29192 ## taken from AnalysisOffline-CBTaggTAPS.dat
+#
 ##
 ## speed TAPS readout bitpatterns
 MultiADC:       1       410    493
@@ -53,8 +56,8 @@ Period:	100000	root/macros/PeriodMacro.C PeriodMacro()
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day4")
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day5")
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_Day6")
-Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_AllDays")
-#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_InBeam")
+#Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_AllDays")
+Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_InBeam")
 #
 # MC
 #Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/MC_InBeam")
@@ -79,9 +82,11 @@ Finish:	root/macros/Finish.C	FinishBasic("ARout/CATS/ARH_AllDays")
 Display: Scaler 2000 3000
 Display: SumScaler 2000 3000
 #
+# And these three sets
 Display: ADC 29048 29059
 Display: MultiHit 29240 29251 12000 -10000  2000 0
 Display: ADC 27000 27015
+#
 ###
 ##### For PWO Time
 ###

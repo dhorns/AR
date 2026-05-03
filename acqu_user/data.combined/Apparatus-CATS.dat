@@ -4,7 +4,6 @@
 Detector:         CATSCore             TA2GenericApp_CATSCore           Detector-CATS-Core.dat
 Detector:         CATSAnnulus          TA2GenericApp_CATSAnnulus        Detector-CATS-Annulus.dat
 Detector:         CATSShield           TA2GenericApp_CATSShield         Detector-CATS-Shield.dat
-#Detector:         CATSShield           TA2GenericDetector              Detector-CATS-Shield.dat
 ##
 ## Turn on apparatus reconstruction 
 #Reconstruct:

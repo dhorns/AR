@@ -274,8 +274,10 @@ void TA2Detector::SetConfig( char* line, int key )
       fElement[n]->SetWalk( line );
     break;
   case EDetectorRawHits:
-    if( fIsTime ) fRawTimeHits = new Int_t[fNelement];
-    if( fIsEnergy ) fRawEnergyHits = new Int_t[fNelement];
+//    if( fIsTime ) fRawTimeHits = new Int_t[fNelement];
+//    if( fIsEnergy ) fRawEnergyHits = new Int_t[fNelement];
+    if( fIsTime ) fRawTimeHits = new Int_t[fNelement+1];
+    if( fIsEnergy ) fRawEnergyHits = new Int_t[fNelement+1];
     fIsRawHits = ETrue;
     break;
   case EDetectorBitPattern:

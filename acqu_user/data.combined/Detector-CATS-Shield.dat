@@ -19,19 +19,21 @@ Element:  27015  -1  4097  101.0  1.0    27007  -1000  1000  1400.0  -0.05    -1
 ##
 Initialise:
 ##
-Display: 1D	NADChits    6 0 6
-Display: 1D	NTDChits    6 0 6
-Display: 1D     Nhits       6 0 6
-Display: 1D	ADCHits	    5 0 5 
-Display: 1D	TDCHits	    5 0 5 
-Display: 1D     Hits        5 0 5 
-Display: 1D     EnergyOR    500  0 500
-Display: 1D     TimeOR      200 -1000 1000
-Display: 2D     TimeOR      200 -1000 1000 -1 EnergyOR        500  0 500 -1
-Display: 2D     EnergyOR    250 0 500 -1    Hits   5  0 5 -1
-Display: 2D     TimeOR      200 -1000 1000 -1    Hits   5  0 5 -1
-#Display: 2D	 ClTheta     100 0 25 -1    ClPhi  180 -180 180 -1
-Display: 1D	 Etot        400 0 800
-#Display: 1D      Energy      300    0   300    0   4
-#Display: 1D      Time        200    -100   100    0   4
 ##
+Display: 1D	NADChits	6 0 6
+Display: 1D	NTDChits	6 0 6
+Display: 1D	Nhits		6 0 6
+#Display: 1D	ADCHits		5 0 5 
+#Display: 1D	TDCHits		5 0 5 
+Display: 1D	Hits		5 0 5 
+Display: 1D	EnergyOR	500 0 500
+Display: 1D	TimeOR		200 -1000 1000
+Display: 2D	TimeOR		200 -1000 1000 -1 EnergyOR 500 0 500 -1
+Display: 2D	EnergyOR	250 0 500 -1 Hits 5 0 5 -1
+Display: 2D	TimeOR		200 -1000 1000 -1 Hits 5 0 5 -1
+Display: 1D	Etot		400 0 800
+##
+##Display: 2D	 ClTheta     100 0 25 -1    ClPhi  180 -180 180 -1
+##Display: 1D      Energy      300    0   300    0   4
+##Display: 1D      Time        200    -100   100    0   4
+###

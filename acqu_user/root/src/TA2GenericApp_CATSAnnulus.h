@@ -7,7 +7,6 @@
 #include <iostream>
 
 class TA2GenericApp_CATSAnnulus : public TA2Detector 
-//class TA2TAPS_BaF2 : public TA2ClusterDetector//Vergleioch TAPS-BaFs
 {
 
 private:
@@ -107,9 +106,7 @@ inline Double_t TA2GenericApp_CATSAnnulus::GetSigmaTime()
 
 inline void TA2GenericApp_CATSAnnulus::Decode()
 {
-//    printf("\n\n\n  ****** VOR DECODE-BASIC ******\n\n");
     DecodeBasic();
-//    printf("\n\n\n  ****** NACH DECODE-BASIC ******\n\n");
     for(UInt_t n=0; n<fNelement; n++)
     if((fTime[n]==EBufferEnd) || (fTime[n]==-1.0))
       fTime[n] = (Double_t)ENullHit;
@@ -117,105 +114,53 @@ inline void TA2GenericApp_CATSAnnulus::Decode()
 
 inline void TA2GenericApp_CATSAnnulus::ReadDecoded()
 {
-  // Read from MC or reduced file.
+	// Read from MC or reduced file.
 
-  // connect branches
-  Int_t nHits = *(Int_t*)(fEvent[EI_ncatsann]);
-  Int_t* hit = (Int_t*)(fEvent[EI_icatsann]);
-  Float_t* energy = (Float_t*)(fEvent[EI_ecatsann]);
-  Float_t* time = NULL;
-  if (fIsTime) time = (Float_t*)(fEvent[EI_tcatsann]);
+	// connect branches
+	Int_t nHits = *(Int_t*)(fEvent[EI_ncatsann]);
+	Int_t* hit = (Int_t*)(fEvent[EI_icatsann]);
+	Float_t* energy = (Float_t*)(fEvent[EI_ecatsann]);
+	Float_t* time = nullptr;
+	if (fIsTime) time = (Float_t*)(fEvent[EI_tcatsann]);
 
-//  std::cout << "Annulus nHits = " << nHits << std::endl;
+	fNhits = 0;  // init valid hits
 
-  // This is temporary!  I'm adding all of the Annulus energy here.
-  fEnergy[0] = 0;
-  for ( UInt_t ii = 0; ii < nHits; ii++)
-  {
-//	  std::cout << ii;
-//	  std::cout << "  " << hit[ii];
-//	  std::cout << "  " << energy[ii]*1000;
-//	  std::cout << "  " << time[ii];
-//	  std::cout << std::endl;
+	for ( UInt_t i = 0; i < fNelement; i++)
+	{
+		fEnergy[i] = 0.0;
+		if ( fIsTime) fTime[i] = (Double_t)ENullHit;
+	}
 
-	  fEnergy[0] += energy[ii]*1000;
-	  fTime[ii] = time[ii];
-  }
+	Double_t total = 0;  // total energy
+	for ( Int_t i = 0; i < nHits; i++)
+	{
 
-/*
+		Int_t elem = hit[i];
 
-  // connect branches
-  Int_t nHits = *(Int_t*)(fEvent[EI_ncats]);
-  Int_t* hit = (Int_t*)(fEvent[EI_icats]);
-  Float_t* energy = (Float_t*)(fEvent[EI_ecats]);
-  Float_t* time = NULL;
-  if (fIsTime) time = (Float_t*)(fEvent[EI_tcats]);
+		if ( elem < 0 || elem >= (Int_t)fNelement) continue;
+		if ( fElement[elem]->IsIgnored()) continue;
 
-  fNhits = 0;  // init valid hits
-  Double_t total = 0;  // total energy
-  for (UInt_t t=0; t<fNelem; t++)
-    fEnergyAll[t] = 0.0;
+		Double_t e = energy[i]*1000.0;
+		Double_t t = fIsTime ? time[i] : 0.0;
 
-  // loop over hits
-  for (Int_t i = 0; i < nHits; i++)
-  {
-    // slightly less ugly decoding of icryst
-    Int_t elem = hit[i] % 10000;
+		total += e;
 
-    // check spurious index
-    if (elem == -1) continue;
+		fEnergy[elem] = e; 
+		if ( fIsTime) fTime[elem] = t;
 
-    // check for ignored element
-    if (fElement[elem]->IsIgnored()) continue;
+		fHits[fNhits] = elem;
+		fEnergyOR[fNhits] = e;
+		if ( fIsTime) fTimeOR[fNhits] = t;
+		fNhits++;
 
-    // convert energy and smear
-    Double_t e = energy[i] * fEnergyScale * fElement[elem]->GetA1();
-    if (fUseSigmaEnergy) e += fRandom->Gaus(0.0, GetSigmaEnergyGeV(e));
-    e *= 1000;
-    fEnergyAll[i] = e;
+	}
 
-    // check energy thresholds
-    if ((e < fElement[elem]->GetEnergyLowThr()) ||
-        (e > fElement[elem]->GetEnergyHighThr())) continue;
+	fTotalEnergy = total;
 
-    // convert time and smear
-    Double_t t = 0;
-    if (fIsTime)
-    {
-      t = time[i] - fElement[elem]->GetT0() - fOffsetTime;
-      if (fSigmaTime > 0 && fUseSigmaTime) t += fRandom->Gaus(0.0, fSigmaTime);
+	fHits[fNhits] = -1;
+	fEnergyOR[fNhits] = EBufferEnd;
+	if ( fIsTime) fTimeOR[fNhits] = EBufferEnd;
 
-      // check time range
-      if ((t < fElement[elem]->GetTimeLowThr()) ||
-          (t > fElement[elem]->GetTimeHighThr())) continue;
-    }
-
-    // register valid hit
-    fEnergy[elem] = e;
-    fEnergyOR[fNhits] = e;
-    total += e;
-    if (fIsTime)
-    {
-      fTime[elem] = t;
-      fTimeOR[fNhits] = t;
-    }
-    fHits[fNhits] = elem;
-    fNhits++;
-  }
-
-  fTotalEnergy = total;
-
-  // terminate arrays
-  fHits[fNhits] = EBufferEnd;
-  fEnergyOR[fNhits] = EBufferEnd;
-  if (fIsTime) fTimeOR[fNhits] = EBufferEnd;
-
-  if(fIsRawHits)
-  {
-    fRawEnergyHits[0] = EBufferEnd;
-    fRawTimeHits[0] = EBufferEnd;
-  }
-*/
 }
 
 #endif

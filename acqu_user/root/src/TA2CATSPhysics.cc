@@ -514,8 +514,6 @@ void TA2CATSPhysics::Reconstruct()
 	Double_t adc_averaged, core_energy;
 	Bool_t shield;
 
-	Double_t CoreE, CoreE_sm, AnnulusE, AnnulusE_sm;
-
 // Do CATS Shield first
 
 // CATS Shield
@@ -531,6 +529,7 @@ void TA2CATSPhysics::Reconstruct()
 	}
 
 	fCATSCoreEnergy = 0;
+	Double_t CoreE, CoreE_smear;
 
 	// CATS Core
 	if ( fCATSCore)
@@ -568,10 +567,15 @@ void TA2CATSPhysics::Reconstruct()
 			// MC Data
 			else
 			{
-				CoreE = fCATSCore->GetEnergy( 0);
-				CoreE_sm = MCEnergySmear( CoreE);
-				fCATSCoreEnergy = MCEnergyShift( CoreE_sm);
-				if ( fCATSCoreEnergy > 1000) fCATSCoreEnergy = 0;
+				Int_t core_hits = fCATSCore->GetNhits();
+				rhits = fCATSCore->GetHits();
+				for ( i = 0; i < core_hits; i++)
+				{
+					elem = rhits[i];
+					CoreE = fCATSCore->GetEnergy( elem);
+					CoreE_smear = MCEnergySmear( CoreE);
+					fCATSCoreEnergy += MCEnergyShift( CoreE_smear);
+				}
 			}
 		}
 
@@ -593,11 +597,8 @@ void TA2CATSPhysics::Reconstruct()
 		}
 	}
 
-	Double_t sum_annulus, annulus_energy;
-	sum_annulus = 0;
-	annulus_energy = 0;
-
-	fCATSAnnulusEnergy = 0;
+	Double_t sum_annulus = 0;
+	Double_t annulusE, annulusE_smear;
 
 // CATS Annulus
 	if ( fCATSAnnulus)
@@ -614,16 +615,22 @@ void TA2CATSPhysics::Reconstruct()
 				{
 					elem = rhits[i];
 					adc_raw = (Int_t)fCATSAnnulus->GetElement( elem)->GetRawADCValue();
-					annulus_energy = AnnulusCalibration( elem, adc_raw);
-					sum_annulus += annulus_energy;
+					annulusE = AnnulusCalibration( elem, adc_raw);
+					sum_annulus += annulusE;
 				}
 			}
 			// MC Data
 			else
 			{
-				AnnulusE = fCATSAnnulus->GetEnergy( 0);
-				AnnulusE_sm = MCEnergySmear( AnnulusE);
-				sum_annulus = MCEnergyShift( AnnulusE_sm);
+				Int_t ann_hits = fCATSAnnulus->GetNhits();
+				rhits = fCATSAnnulus->GetHits();
+				for ( i = 0; i < ann_hits; i++)
+				{
+					elem = rhits[i];
+					annulusE = fCATSAnnulus->GetEnergy( elem);
+					annulusE_smear = MCEnergySmear( annulusE);
+					sum_annulus += MCEnergyShift( annulusE_smear);
+				}
 			}
 		}
 		fCATSAnnulusEnergy = sum_annulus;
