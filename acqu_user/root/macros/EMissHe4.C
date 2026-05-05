@@ -27,7 +27,21 @@ TH2D *hR = (TH2D*)he4_data.Get( "PHYS_TaggerChannelRandomPi0_v_MissingEnergyRand
 // Prompt-Accidental Subtraction Ratio
 const Double_t rPR = 0.0636;
 
+// Target thickness in nuclei/cm^2 for the 5-cm cell.
+const Double_t t_cm2 = 0.940e23;
+// Converts cm^2 to microbarn.
+const Double_t t_ub = 1e30/t_cm2;
+// Approximate Detection Efficiency
+//const Double_t edet = 0.64;
+// For 210 MeV
+//const Double_t edet = 0.73;
+const Double_t edet = 0.50;
+// Approximate Tagging Efficiency
+const Double_t etag = 0.185;
+
 TH2D *hS2;
+
+TH1D *scalers;
 
 void ReadTagEng( Int_t eg)
 {
@@ -75,7 +89,8 @@ void EMissHe4()
 	hS2 = (TH2D*)hS->Clone( "binned");
 	hS2->SetTitle( "Binned");
 
-	c1->Print( "plots/EMissHe4.pdf");
+//	c1->Print( "plots/CB/EMissHe4.pdf");
+	c1->Print( "plots/CB/emiss_data.eps");
 
 }
 
@@ -102,7 +117,8 @@ void ProjEMiss( UInt_t chan)
 	pt->AddText( name);
 	pt->Draw();
 
-	name = Form( "plots/EMissHe4_%dMeV.pdf", eg);
+//	name = Form( "plots/CB/EMissHe4_%dMeV.pdf", eg);
+	name = Form( "plots/CB/EMissHe4_%dMeV.eps", eg);
 	c1->Print( name);
 
 }
@@ -147,7 +163,7 @@ void TaggerTime( UInt_t rebin = 1)
 	cout << "  ratio = " << ratio;
 	cout << endl;
 
-//	c1->Print( "plots/TaggerTimeCut.pdf");
+//	c1->Print( "plots/CB/TaggerTimeCut.pdf");
 
 }
 
@@ -171,7 +187,40 @@ void TaggerScalers()
 
 	}
 
+	scalers = (TH1D*)ss->Clone( "scalers");
+
 	TCanvas *c1 = new TCanvas ( "c1", "Scalers", 20, 350, 700, 500);
 	ss->Draw();
+
+}
+
+void XS( UInt_t chan)
+{
+	Int_t binlo, binhi;
+	Double_t yield, tscalers, ratio, xs;
+
+	hS2->GetYaxis()->SetRange( chan, chan);
+	TH1D *emiss = hS2->ProjectionX( "projX");
+
+	// Integrate EMiss from -20 to 40
+	binlo = emiss->GetXaxis()->FindBin( -20);
+	binhi = emiss->GetXaxis()->FindBin( 40);
+	yield = emiss->Integral( binlo, binhi);
+
+	tscalers = scalers->GetBinContent( chan);
+
+	ratio = yield/tscalers;
+
+	xs = ratio*t_ub/edet/etag;
+
+	cout << chan;
+	cout << " " << tdata[chan].egamma;
+	cout << " " << yield;
+	cout << " " << tscalers;
+	cout << " " << ratio;
+	cout << " " << edet;
+	cout << " " << etag;
+	cout << " " << xs;
+	cout << endl;
 
 }

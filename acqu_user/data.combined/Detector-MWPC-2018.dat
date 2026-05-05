@@ -1026,24 +1026,24 @@ Initialise:
 ##
 ##		N	Macro File		Macro Procedure
 # Period:		10	CylMwpcPeriodMacro.C	TestCylMwpc()
-##
-## Cut specification
-## NB 2D cuts, ie a general polygon on the X-Y plane not yet implemented
-## Simple rectangle cuts may be made by an AND of X and Y conditions
-##         1/2D Name     		Link   Scope          Low/High Limits
-# Data-Cut: 1D   Wire1NClust		AND     data		2   2
-# Data-Cut: 1D   Wire2NClust		AND     data		2   2
-# Data-Cut: 1D   InnerStrip1NClust	AND     data		2   2
-# Data-Cut: 1D   InnerStrip2NClust	AND     data		2   2
-# Data-Cut: 1D   OuterStrip1NClust	AND     data		2   2
-# Data-Cut: 1D   OuterStrip2NClust	AND     data		2   2
-# Data-Cut: 1D   VertexesN		AND     data		1 1
-#  Data-Cut: 1D	 TrackDist		AND	data 		0 6.73
-#Data-Cut: 1D VertexZ AND data 130 180 
-##
-##	Histograming of basic detector stuff
-##
-## Overall detector hits
+#
+# Cut specification
+# NB 2D cuts, ie a general polygon on the X-Y plane not yet implemented
+# Simple rectangle cuts may be made by an AND of X and Y conditions
+#         1/2D Name     		Link   Scope          Low/High Limits
+ Data-Cut: 1D   Wire1NClust		AND     data		2   2
+ Data-Cut: 1D   Wire2NClust		AND     data		2   2
+ Data-Cut: 1D   InnerStrip1NClust	AND     data		2   2
+ Data-Cut: 1D   InnerStrip2NClust	AND     data		2   2
+ Data-Cut: 1D   OuterStrip1NClust	AND     data		2   2
+ Data-Cut: 1D   OuterStrip2NClust	AND     data		2   2
+ Data-Cut: 1D   VertexesN		AND     data		1 1
+  Data-Cut: 1D	 TrackDist		AND	data 		0 6.73
+Data-Cut: 1D VertexZ AND data 130 180 
+#
+#	Histograming of basic detector stuff
+#
+# Overall detector hits
 Display:	1D	Nhits  			860 	0 	860
 Display:	1D	Hits			860	0	860
 ## Hits in each layer
