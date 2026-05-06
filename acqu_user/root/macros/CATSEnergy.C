@@ -79,6 +79,7 @@ void CATSEnergy()
 	c1->Print( "plots/CATSEnergy-2D.pdf");
 
 }
+
 void ProjCATSE( UInt_t chan)
 {
 	UInt_t eg;
